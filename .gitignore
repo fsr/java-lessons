@@ -1,0 +1,12 @@
+.gitconfig
+
+# latex files
+*.aux
+*.log
+*.pdf
+*.nav
+*.out
+*.gz
+*.snm
+*.toc
+*.vrb
