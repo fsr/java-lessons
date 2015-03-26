@@ -1,0 +1,502 @@
+\input{res/slide_header.tex}
+
+\title{Java 02}
+\subtitle{Object-Oriented Programming}
+\author{FSR Informatik}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+\begin{frame}{Overview}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+\subsection{What is OOP}
+\begin{frame}{}
+	Java is an object-oriented programming\footnote{OOP} language. \\
+	\vspace{1em}
+	The world of java consists of interacting objects. Those objects have a \textbf{state}, 
+	a \textbf{behavior} and (maybe) a \textbf{relationship} to each other.
+\end{frame}
+
+\begin{frame}{An Example}
+	You want to program an enrollment system, for a programming course. \\
+	\vspace{1em}
+	Your classes are:\\
+	\begin{description}
+		\item[student] who wants to attend the course
+		\item[lesson] which is a part of the course
+		\item[time slice] when your lessons are
+		\item[room] where your lessons take place
+		\item[\dots]
+	\end{description}
+	The more you think about it, the more complex this program becomes.
+	Focus on the relevant things.
+\end{frame}
+	
+\begin{frame}{Terminology} % redundant explanation - always a good thing
+	Java knows \textbf{Classes} and \textbf{Objects}. A class is like a blueprint for an object. 
+	With one blueprint you can build multiple objects of the same kind. \\
+	\vspace{1em}
+	For example: the class \emph{Student}\footnote{Remember: class names always start with a capital letter.} describes a student in general. 
+	The objects - build from this class - describe each student in particular. \\
+	Each (real-life) student has one object representing him in the enrollment system.
+\end{frame}
+
+
+\section{Classes and Objects}
+\subsection{Class}
+\begin{frame}{Class Structure}
+	A class contains \textbf{attributes}. Those hold the state of the object built from this class. 
+	A student may have the attributes \emph{name} and \emph{matriculation number}. \\
+	\vspace{1em}
+	A class also contain \textbf{methods}. Those define the abilities of the object built from this class.
+	A student is able to \emph{print his timetable}. Maybe a student have methods to change some of his attributes.
+\end{frame}
+
+\begin{frame}[fragile]{Class \emph{Student}}
+	\begin{lstlisting}
+	public class Student {
+	
+	    // attributes:
+	    String name;
+	    int matriculationNumber;	
+	
+	    // method 1
+	    public void printTimetable() {
+	        System.out.println("my timetable");
+	    }
+	    
+	    // method 2
+	    public void changeName(String name) {
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Class \emph{Student} - head}
+	\begin{lstlisting}
+	public class Student {
+	
+	}
+	\end{lstlisting}
+	This is the head of the class. \\
+	The word \textbf{public} states the visibility of the class.
+	We discuss this issue later. The word \textbf{class} marks this whole structure as a class.
+	\emph{Student} is the name of the class. \\
+	The curly brackets do not belong to the class head, but encapsulate the body.
+\end{frame}
+
+\begin{frame}[fragile]{Class \emph{Student} - body}
+	\begin{lstlisting}
+	    // attributes:
+	    String name;
+	    int matriculationNumber;	
+	
+	    // method 1
+	    public void printTimetable() {
+	        System.out.println("my timetable");
+	    }
+	    
+	    // method 2
+	    public void changeName(String name) {
+	    }
+	\end{lstlisting}
+	This is the body of the class. The body contains the \textbf{attributes} and the \textbf{methods}.
+\end{frame}
+
+\begin{frame}[fragile]{Class \emph{Student} - attributes}
+	\begin{lstlisting}
+	    // attributes:
+	    String name;
+	    int matriculationNumber;	
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Class \emph{Student} - methods}
+	\begin{lstlisting}
+	    // method 1
+	    public void printTimetable() {
+	        System.out.println("my timetable");
+	    }
+	    
+	    // method 2
+	    public void changeName(String name) {
+	    }
+	\end{lstlisting}
+	Inside a method are the instructions for the program. Always remember that. 
+	\emph{A common mistake is to place instructions outside of a method.}
+\end{frame}
+
+\subsection{Object}
+
+\begin{frame}[fragile]{Creation}
+	We learned how to declare and assign a primitive datatype.
+	\begin{lstlisting}
+	    int a; // declare a
+	    a = 273; // assign 273 to a
+	\end{lstlisting} 
+	The creation of an object works similar.
+	\begin{lstlisting}
+	    Student example; // declare example
+	    example = new Student(); // create an instance of Student
+	\end{lstlisting}
+	The \textbf{object} derived from a \textbf{class} is also called \textbf{instance}.
+	The variable\footnote{in this listing \emph{example}} is called the \textbf{reference}.
+\end{frame}
+
+\section{Methods}
+\subsection{Methods}
+\begin{frame}[fragile, allowframebreaks]{Calling a Method}
+	\begin{lstlisting}
+	public class Student {
+	
+	    public void printTimetable() {
+	        System.out.println("my timetable");
+	    }
+	    
+	    public void printName() {
+	        System.out.println("Jane");
+	    }
+	}
+	\end{lstlisting}
+	The class \emph{Student} has two methods: \emph{void printTimetable()} and \emph{void printName()}.
+	\begin{lstlisting}
+	public class EnrollmentSystem {
+	    
+	    public static void main(String[] args) {
+	        System.out.println("hello");
+	        Student example = new Student(); // creation
+	        example.printTimetable(); // method call
+	    }
+	}
+	\end{lstlisting}
+	You can call a method of an object after its creation with \textbf{reference.methodName()}.
+\end{frame}
+
+\subsection{Main Method}
+\begin{frame}[fragile]{Main Method}
+	Which line will be printed?
+	\begin{lstlisting}
+	public class EnrollmentSystem {
+	
+	    public void test() {
+	        System.out.println("test");
+	    }
+	    
+	    public static void main(String[] args) {
+	        System.out.println("hello");
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Main Method}
+	Only the line \emph{hello} will be printed. 
+	Each Java program starts in the \textbf{main method}. 
+	Other methods have to be called.
+	\begin{lstlisting}
+	public class EnrollmentSystem {
+	
+	    public void test() {
+	        System.out.println("test");
+	    }
+	    
+	    public static void main(String[] args) {
+	        System.out.println("hello");
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Arguments}
+\begin{frame}[fragile]{Methods with Arguments}
+	You can call a method with e.g. two arguments via \texttt{methodName(arg1, arg2)}.
+	\begin{lstlisting}
+	public class Calc {
+	
+	    public void add(int summand1, int summand2) {
+	        System.out.println(summand1 + summand2);
+	    }
+	    
+	    public static void main(String[] args) {
+	        int summandA = 1;
+	        int summandB = 2;
+	        Calc calculator = new Calc();
+	        System.out.print("1 + 2 = ");
+	        calculator.add(summandA, summandB); // prints: 3
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Methods with Arguments - another Example}
+	\begin{lstlisting}
+	public class Calc {
+	
+	    public void concatenate(String base, int supplement) {
+	        System.out.println(base + supplement);
+	    }
+	    
+	    public static void main(String[] args) {
+	        String part1 = "1";
+	        int part2 = 2;
+	        Calc calculator = new Calc();
+	        System.out.print("1 + 2 = ");
+	        calculator.concatenate(part1, part2); // prints: 12
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Methods with Arguments - yet another Example}
+	\begin{lstlisting}
+	public class Calc {
+	
+	    public void concatenate(String base, int supplement) {
+	        System.out.println(base + supplement);
+	    }
+	    
+	    public static void main(String[] args) {
+	        Calc calculator = new Calc();
+	        System.out.print("1 + 2 = ");
+	        calculator.concatenate("1", 2); // prints: 12
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Return Value}
+\begin{frame}[fragile]{Methods with Return Value}
+	A method without a return value is indicated by \textbf{void}:
+	\begin{lstlisting}
+	public void add(int summand1, int summand2) {
+	    System.out.println(summand1 + summand2);
+	}
+	\end{lstlisting}
+	A method with an \textbf{int} as return value:
+	\begin{lstlisting}
+	public int add(int summand1, int summand2) {
+	    return summand1 + summand2;
+	}
+	\end{lstlisting}
+	%% TODO explain return statement
+\end{frame}
+
+\begin{frame}[fragile]{Calling Methods with a return value}
+	\begin{lstlisting}
+	public class Calc {
+	
+	    public int add(int summand1, int summand2) {
+	        return summand1 + summand2;
+	    }
+	    
+	    public static void main(String[] args) {
+	        Calc calculator = new Calc();
+	        int sum = calculator.add(3, 8);
+	        System.out.print("3 + 8 = " + sum); // prints: 3 + 8 = 11
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Nested Calls}
+	You can nest your method calls.
+	\begin{lstlisting}
+	public class Calc {
+	
+	    public int add(int summand1, int summand2) {
+	        return summand1 + summand2;
+	    }
+	    
+	    public static void main(String[] args) {
+	        Calc calc = new Calc();
+	        int sum = calc.add(3, calc.add(8, 5));
+	        System.out.print("3 + 8 + 5 = " + sum); 
+	        // prints: 3 + 8 + 5 = 16
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\section{Working with Objects}
+\subsection{Attributes}
+\begin{frame}[fragile]{Attributes in a Class}
+	An \textbf{attribute} is similar to a variable, but declared outside a method\footnote{But still inside the class body} 
+	and hence accessible by all methods of the class.
+	The attributes represent the state of an object.
+	\begin{lstlisting}
+	public class Student {
+	
+	    public String name;
+	    
+	    public void printName() {
+	        System.out.println(name);
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Direct Access}
+	You can access an attribute directly using the \textbf{dot operator}\footnote{\textbf{+ - . =} are called operators} without round brackets.
+	\begin{lstlisting}
+	public class EnrollmentSystem {
+	    
+	    public static void main(String[] args) {
+	        Student example = new Student();
+	        example.name = "Jane Doe";
+	        example.printName();
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Multiple Objects}
+	Multiple objects may differ in the value of their attributes.
+	\begin{lstlisting}
+	public class EnrollmentSystem {
+	    
+	    public static void main(String[] args) {
+	        Student exampleA = new Student();
+	        Student exampleB = new Student();
+	        exampleA.name = "Jane Doe";
+	        exampleB.name = "Julius Doe";
+	        exampleA.printName();
+	        exampleB.printName();
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{this}
+\begin{frame}[fragile]{this}
+	The keyword \textbf{this} is a \textbf{reference} to the current object. 
+	So you can access the object from inside the object.
+	\begin{lstlisting}
+	public class Student {
+	
+	    public String @\textcolor{gray}{\texttt{name}}@;
+	    
+	    public void changeName(String @\textcolor{red}{\texttt{name}}@) {
+	        this.@\textcolor{gray}{\texttt{name}}@ = @\textcolor{red}{\texttt{name}}@;   
+	    }
+	}
+	\end{lstlisting}
+	The local scope of \textcolor{red}{\texttt{name}} overrides the class scope of \textcolor{gray}{\texttt{name}}. 
+	Without \textbf{this} you can not access the variable \textcolor{gray}{\texttt{name}} in this specific method.
+\end{frame}
+
+\begin{frame}[fragile, allowframebreaks]{Calling a Method inside a Class}
+	\begin{lstlisting}
+	public class Student {
+	
+	    public void printTimetable() {
+	        this.printName(); // call another method
+	        System.out.println("my timetable");
+	    }
+	    
+	    public void printName() {
+	        System.out.println("Jane");
+	    }
+	}
+	\end{lstlisting}
+	A method can call other methods inside the same class.
+	\begin{lstlisting}
+	public class EnrollmentSystem {
+	    
+	    public static void main(String[] args) {
+	        System.out.println("hello");
+	        Student example = new Student(); // creation
+	        example.printTimetable(); // method call
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Constructor}
+\begin{frame}[fragile]{Constructor}
+	The \textbf{constructor} is a special method, which is invoked while creating the object. 
+	This method has the same name as the class. It is often used to initialize the attributes.
+	The constructor has no return value. 
+	This \textbf{must not} be indicated with void.
+	\begin{lstlisting}	
+	public class Student {
+	
+	    public String name;
+	    
+	    public Student() {
+	        this.name = "Jane Doe"; 
+	    }
+	}
+	\end{lstlisting}	
+\end{frame}
+\begin{frame}[fragile]{Call the Constructor}
+	\begin{lstlisting}	
+	public class EnrollmentSystem {
+	    
+	    public static void main(String[] args) {
+	        Student example = new Student();
+	        System.out.println(example.name);
+	        // prints: Jane Doe
+	    }
+	}
+	\end{lstlisting}	
+\end{frame}
+\begin{frame}[fragile]{Constructor with arguments}
+	A constructor can take arguments.
+	\begin{lstlisting}	
+	public class Student {
+	
+	    public String name;
+	    
+	    public Student(String name) {
+	        this.name = name;	    
+	    }
+	}
+	\end{lstlisting}	
+\end{frame}
+\begin{frame}[fragile]{Call the Constructor with arguments}
+	\begin{lstlisting}	
+	public class EnrollmentSystem {
+	    
+	    public static void main(String[] args) {
+	        Student exampleA = new Student("Jane Doe");
+	        Student exampleB = new Student("Julius Doe");
+	    }
+	}
+	\end{lstlisting}	
+\end{frame}
+
+
+% \section{Conclusion} %%% TODO
+
+%% repetition: an obj can be used as complex data structure vs. primitive
+	%% like student data as a student
+%% most of the time objects are actors. 
+%% The also represent non touchable things in world. Such as: Time, Weather
+%% OBJ used to model abstract things:
+	%% GUI: window, button, etc.
+	%% Role, Supervisor
+
+%% TODO avoid talking about references without explaining them	
+%% TODO slide about references (maybe in a later slide set):
+%% Every object is handled by Java through a reference
+%% This means, when you move or assign an object, only the reference gets moved, 
+%% the object stays in the same position in your computers memory.
+%% if a reference is shared, everyone who shares it, influences the same object! No copies are made!
+%%
+%% Example:
+%% Student student1 = new Student();
+%% Student student2 = student1; // share reference of student1
+%% student1.name = "Peter"; // influence the object
+%% System.out.println(student2.name); // prints "Peter"
+%%
+%% Also: draw a sketch.
+
+
+
+\end{document}
