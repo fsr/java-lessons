@@ -1,0 +1,603 @@
+\input{res/slide_header.tex}
+
+\title{Java 03}
+\subtitle{Inheritance}
+\author{FSR Informatik}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+\begin{frame}{Overview}
+\tableofcontents
+\end{frame}
+
+\section{Control Structures}
+\subsection{boolean}
+\begin{frame}[fragile]{Statements}
+	A statement can be \textbf{true} or \textbf{false}. 
+	You can use a boolean variable to save the value of a statement.
+	\begin{lstlisting}
+	boolean x1 = (17 < 20);  // true
+	boolean x2 = (17 >= 20); // false
+	boolean x3 = (17 == 20); // false
+	boolean x4 = (17 != 20); // true
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Relational Operators}
+	Some relational operators for your statements:
+	\begin{description}
+		\item[A $<$ B] A smaller B
+		\item[A $<=$ B] A smaller or equal B
+		\item[A $>$ B] A greater B
+		\item[A $>=$ B] A greater or euqal B
+		\item[A $==$ B] A equal B
+		\item[A $!=$ B] A not equal B
+	\end{description}
+\end{frame}
+
+\begin{frame}{Logic}
+	You can combine statements with logic operators like \textbf{NOT}, \textbf{AND} and \textbf{OR}.
+	\begin{description}
+		\item[!A] not A - is true if A is false
+		\item[A \&\& B] A and B - is true if both statements are true
+		\item[A \textbar\textbar\ B] A or B - is true if one statement is true or both
+	\end{description}
+\end{frame}
+
+\begin{frame}[fragile]{Examples}
+	\begin{lstlisting}
+	boolean x1 = (17 < 20) && (4 < 16);  // true
+	boolean x2 = (17 >= 20) || (4 < 16); // true
+	boolean x3 = (17 == 20) && (4 == 4); // false
+	boolean x4 = !(17 != 20);            // false
+	boolean x5 = !(4 == 16) || (((17 == 20) && (4 == 4))); 
+	// x5 is true
+	\end{lstlisting}
+\end{frame}
+
+\subsection{condition}
+\begin{frame}[fragile]{if}
+	%% grams is AE and grammes is BEsymbol
+	\begin{lstlisting}
+	public class PostOffice {
+	
+	    public static void main(String[] args) {
+	
+	        int letterWeight = 46; // in grams
+	        int postage = 90; // in ct
+	    
+	        if(letterWeight <= 20) {
+	            postage = 60;
+	        }
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{if}
+	%TODO red source code with same format as normal source code
+	% if some is able to do that, pleas mail me
+	If the \textcolor{red}{statement} is true the \textcolor{blue}{body} inside the curly brackets will be executed.
+	If the \textcolor{red}{statement} is false the \textcolor{blue}{body} will not be executed.
+	\begin{lstlisting}
+	int letterWeight = 53; // in grams
+	int postage = 90; // in ct
+	    
+	if(@\textcolor{red}{letterWeight <= 20}@) {
+	    @\textcolor{blue}{postage = 60;}@
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{if - example}
+	\begin{lstlisting}
+	public class PostOffice {
+	
+	    public static void main(String[] args) {
+	
+	        int letterWeight = 46;
+	        int postage = 90;
+	        
+	        if(letterWeight <= 20) { // false
+	            postage = 60;
+	        }
+	        
+	        System.out.println(postage + "ct");
+	        // prints: 90ct
+	    }
+	}
+	\end{lstlisting}
+	%\emph{If not neceassary the class head will not shown in the following examples.}
+\end{frame}
+
+\begin{frame}[fragile]{if - counter example}
+	\begin{lstlisting}
+	public class PostOffice {
+	
+	    public static void main(String[] args) {
+	
+	        int letterWeight = 17;
+	        int postage = 90;
+	    
+	        if(letterWeight <= 20) { // true
+	            postage = 60;
+	        }
+	        
+	        System.out.println(postage + "ct");
+	        // prints: 60ct
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{else}
+\begin{frame}[fragile]{else}
+	\begin{lstlisting}
+	public class PostOffice {
+	
+	    public static void main(String[] args) {
+	
+	        int letterWeight = 17;
+	        int postage = 0;
+	    
+	        if(letterWeight <= 20) { // true
+	            postage = 60;
+	        } else {
+	            postage = 90;
+	        }
+	        
+	        System.out.println(postage + "ct");
+	        // prints: 60ct
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{else if}
+	\begin{lstlisting}
+	public class PostOffice {
+	
+	    public static void main(String[] args) {
+	
+	        int letterWeight = 37;
+	        int postage = 0;
+	    
+	        if(letterWeight <= 20) { // false
+	            postage = 60;
+	        } else if (letterWeight <= 50) { // true
+	            postage = 90;
+	        }
+	        
+	        System.out.println(postage + "ct");
+	        // prints: 90ct
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{multiple else if}
+	\begin{lstlisting}
+	public static void main(String[] args) {
+	
+	    int letterWeight = 37;
+	    int postage = 0;
+	    
+	    if(letterWeight <= 20) { // false
+	        postage = 60;
+	    } else if (letterWeight <= 50) { // true
+	        postage = 90;
+	    } else if (letterWeight <= 500 ) { // true
+	        postage = 145;
+	    }
+	        
+	    System.out.println(postage + "ct");
+	    // prints: 90ct
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}{multiple else if}
+	You can use as many \emph{else if} as you want.
+	If multiple conditions are true, only the first one is relevant. \\
+	\vfill
+	\textbf{Warning: } Other programing languages may handle this case differently.
+\end{frame}
+
+\subsection{Loops}
+\begin{frame}[fragile]{For Loop}
+	The for loop starts with an assignment: \textcolor{gray}{\texttt{int i = 4}}. \\
+	Every lap the \textcolor{blue}{body} will be executed and prints the changing variable i. \\
+	After each lap the i will be incremented via \textcolor{orange}{\texttt{i++}}. \\
+	The loop will stop if the condition \textcolor{red}{\texttt{i $<=$ 10}} becomes false. 
+	It will never start if the condition is false at begin.
+	\begin{lstlisting}
+	public static void main(String[] args) {
+	
+	    for ( @\textcolor{gray}{int i = 4}@; @\textcolor{red}{i <= 10}@; @\textcolor{orange}{i++}@) {
+	        @\textcolor{blue}{System.out.print(i + " ");}@   
+	    }
+	    //prints: 4 5 6 7 8 9 10
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Endless Loop}
+	If you need an endless loop. Use \textbf{for} with empty parameters.
+	\begin{lstlisting}
+	public static void main(String[] args) {
+	
+	    for (;;) {
+	        System.out.println("I am still running");
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{While Loop}
+	The while loop will be executed \emph{while} the \textcolor{red}{condition} is true.
+	\begin{lstlisting}
+	public static void main(String[] args) {
+	
+	    int i = 1;
+	    while (@\textcolor{red}{i < 5}@) {
+	        i++;
+	        System.out.print(i + " ");
+	    }
+	    // prints: 2 3 4 5
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Do-While Loop}
+	The do-while loop will be executed until the \textcolor{red}{condition} becomes false.
+	\begin{lstlisting}
+	public static void main(String[] args) {
+	
+	    int i = 1;
+	    do {
+	        i++;
+	        System.out.print(i + " ");
+	    } while (@\textcolor{red}{i < 5}@);
+	    // prints: 2 3 4 5
+	}
+	\end{lstlisting}
+	\emph{Do not forget the semicolon at the end.}
+\end{frame}
+
+\begin{frame}{While vs. Do-While}
+	There is a difference between the while and the do-while loop. \\
+	\vfill
+	If the loop condition false at start:
+	\begin{itemize}
+		\item the while loop will not start at all
+		\item the do-while loop will run one time, if the condition stays false
+	\end{itemize}
+\end{frame}
+
+\section{Array}
+\subsection{Unidimensional Array}
+\begin{frame}[fragile]{Array}
+	An array is a data-type that can hold a \textbf{fixed number} of elements. 
+	An Element can be any simple data-type or object.
+	\begin{lstlisting}
+	public static void main(String[] args) {
+	
+	    int[] intArray = new int[10];
+	    intArray[8] = 7; // assign 7 to the 9th element
+	    intArray[9] = 8; // assign 8 to the last element
+	    
+	    System.out.println(intArray[8]); // prints: 7
+	}
+	\end{lstlisting}
+	You can access every element via an index. A n-element array has indexes from 0 to (n-1).
+\end{frame}
+
+\begin{frame}[fragile]{Array Initialization} % AE
+	You can initialize an array with a set of elements.
+	\begin{lstlisting}
+	public static void main(String[] args) {
+	
+	    int[] intArray = {3, 2, 7};
+	    
+	    System.out.println(intArray[0]); // prints: 3
+	    System.out.println(intArray[1]); // prints: 2
+	    System.out.println(intArray[2]); // prints: 7
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Alternative Declaration}
+	There two possible positions for the square brackets. 
+	%I would recommend the first version to improve readability.
+	\begin{lstlisting}
+	public static void main(String[] args) {
+
+	    // version 1	
+	    int[] intArray1 = new int[10];
+	    
+	    // version 2
+	    int intArray2[] = new int[10];
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Multi-Dimensional Array}
+\begin{frame}[fragile]{2-Dimensional Array}
+	Arrays work with more than one dimension. 
+	An m-dimensional array has m indexes for one element.
+	\begin{lstlisting}
+	public static void main(String[] args) {
+
+	    // an array with 100 elements
+	    int[][] intArray = new int[10][10];
+	    
+	    intArray[0][0] = 0;
+	    intArray[0][9] = 9;
+	    intArray[9][9] = 99;
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Assignment with Loops}
+	Loops are often used to assign elements in arrays.
+	\begin{lstlisting}
+	public static void main(String[] args) {
+
+	    int[][] intArray = new int[10][10];
+	    
+	    for(int i = 0; i < 10; i++) {
+	        for(int j = 0; j < 10; j++) {
+	            intArray[i][j] = i*10 + j;
+	        }
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\section{Inheritance}
+\subsection{Inheritance}
+\begin{frame}{Inheritance}
+	Objects in real world have a relationship to each other.
+	In software we have to modell them if necessary. \\
+	\vfill
+	Java has a concept for one of those relationships: \textbf{Inheritance}.
+	\vfill
+	Inheritance is a modell of the \emph{is a kind of} - relation.
+	Using this we can structure our classes.
+\end{frame}
+
+\begin{frame}[fragile]{A special Delivery}
+	Our class \emph{Letter} is a kind of \emph{Delivery} denoted by the keyword \textbf{extends}.
+	\begin{itemize}
+		\item \emph{Letter} is a \textbf{subclass} of the class \emph{Delivery}
+		\item \emph{Delivery} is the \textbf{superclass} of the class \emph{Letter}
+	\end{itemize}
+	\begin{lstlisting}
+	public class Letter extends Delivery {
+	
+	}
+	\end{lstlisting}
+	\vfill
+	As mentioned implicitly above a class can has multiple subclasses. 
+	But a class can only inherit directly from one superclass.
+\end{frame}
+
+\begin{frame}[fragile]{Example}
+	We have the classes: \emph{PostOffice}, \emph{Delivery} and \emph{Letter}.
+	They will be used for every example in this section and they will grow over time.
+	\begin{lstlisting}
+	public class Delivery {
+	
+	    public String address;
+	    public String sender;
+	    
+	    public void printAddress() {
+	        System.out.println(this.address);
+	    }
+	}
+	\end{lstlisting}
+	
+	\begin{lstlisting}
+	public class Letter extends Delivery {
+	
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Inherited Attributes}
+	The class \emph{Letter} inherits all attributes from the superclass \emph{Delivery}.
+	\begin{lstlisting}
+	public class PostOffice {
+	
+	    public static void main(String[] args) {
+	    
+	        Letter letter = new Letter();
+	        
+	        letter.address = "cafe ascii, Dresden";
+	        
+	        System.out.println(letter.address);
+	        // prints: cafe ascii, Dresden
+	    }	
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Inherited Methods}
+	The class \emph{Letter} also inherits all methods from the superclass \emph{Delivery}.
+	\begin{lstlisting}
+	public class PostOffice {
+	
+	    public static void main(String[] args) {
+	    
+	        Letter letter = new Letter();
+	        
+	        letter.address = "cafe ascii, Dresden";
+	        
+	        letter.printAddress();
+	        // prints: cafe ascii, Dresden
+	    }	
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Override Methods}
+	The method printAddress() is now additional definded in \emph{Letter}.
+	\begin{lstlisting}[escapechar=!]
+	public class Letter extends Delivery {
+	
+	    @Override
+	    public void printAddress() {
+	        System.out.println("a letter for " + this.address);    
+	    }	
+	}
+	\end{lstlisting}
+	% programer is AE
+	\texttt{@Override} is an annotation. 
+	It helps the programer to identify overwritten methods.
+	It is not neccessary for running the code but improves readability.
+	What annotations else can do we discuss in a future lesson.
+\end{frame}
+\begin{frame}[fragile]{Override Methods}
+	Now the method \texttt{printAddress()} defined in \emph{Letter} will be used instead of the method defined
+	in the superclass \emph{Delivery}.
+	\begin{lstlisting}
+	public class PostOffice {
+	
+	    public static void main(String[] args) {
+	    
+	        Letter letter = new Letter();
+	        
+	        letter.address = "cafe ascii, Dresden";
+	        
+	        letter.printAddress();
+	        // prints: a letter for cafe ascii, Dresden
+	    }	
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Constructor}
+\begin{frame}[fragile]{Super()}
+	If we define a \textbf{constructor with arguments} in \emph{Delivery} we have to define a constructor
+	with the same list of arguments in every subclass.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class Delivery {
+	
+	    public String address;
+	    public String sender;
+	    
+	    public Delivery(String address, String sender) {
+	        this.address = address;
+	        this.sender = sender;
+	    }
+	    	    
+	    public void printAddress() {
+	        System.out.println(this.address);
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Super()}
+	For the constructor in the subclass \emph{Letter} we can use \texttt{super()} to call the constructor
+	from the superclass.
+	\begin{lstlisting}[escapechar=!]
+	public class Letter extends Delivery {
+
+	    public Letter(String address, String sender) {
+	        super(address, sender);
+	    }
+	
+	    @Override
+	    public void printAddress() {
+	        System.out.println("a letter for " + this.address);    
+	    }	
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Super() - Test}
+	\begin{lstlisting}
+	public class PostOffice {
+	    
+	    public static void main(String[] args) {	    
+	        Letter letter = 
+	            new Letter("cafe ascii, Dresden", "");
+	        
+	        letter.printAddress();
+	        // prints: a letter for cafe ascii, Dresden
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Implicit Inheritance}
+\begin{frame}{Object}
+	Every class is a subclass from the class \emph{Object}. 
+	Therefore every class inherits methods from \emph{Object}.
+	\vfill
+	See \scriptsize\url{http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html} \normalsize for
+	a full reference of the class \emph{Object}.
+\end{frame}
+
+\begin{frame}[fragile]{toString()}
+	\emph{Letter} is a subclass of \emph{Object}.
+	Therefore \emph{Letter} inherits the method \texttt{toString()} from \emph{Object}.\\
+	\texttt{System.out.println(argument)} will call \texttt{argument.toString()} to receive
+	a printable String.
+	\begin{lstlisting}[escapechar=!]
+	public class PostOffice {
+	    
+	    public static void main(String[] args) {	    
+	        Letter letter = 
+	            new Letter("cafe ascii, Dresden", "");
+	        
+	        System.out.println(letter);
+	        // prints: Letter@_some_HEX-value_
+	        // for example: Letter@4536ad4d
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Override toString()}
+	\begin{lstlisting}[escapechar=!]
+	public class Letter extends Delivery {
+
+	    public Letter(String address, String sender) {
+	        super(address, sender);
+	    }
+	
+	    @Override
+	    public String toString() {
+	        return "a letter for " + this.address;
+	    }	
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Override toString() - Test}
+	\begin{lstlisting}
+	public class PostOffice {
+	    
+	    public static void main(String[] args) {	    
+	        Letter letter = 
+	            new Letter("cafe ascii, Dresden", "");
+	        
+	        System.out.println(letter);
+	        // a letter for cafe ascii, Dresden
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+%\section{Visability}
+%\subsection{}
+%\begin{frame}{}
+%\end{frame}
+
+\end{document}
