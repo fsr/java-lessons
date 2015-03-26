@@ -1,0 +1,514 @@
+\input{res/slide_header.tex}
+
+\title{Java}
+\subtitle{05 - Generics and Collections}
+\author{FSR Informatik}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+\begin{frame}{Overview}
+\tableofcontents
+\end{frame}
+
+\section{Generics}
+\subsection{Example - Generic Class}
+\begin{frame}[fragile]{Generic Class Present}
+	\textcolor{red}{T} is a generic type. 
+	The type parameter \textcolor{red}{T} can represent any class, for example \emph{String}.
+	While compiling \textcolor{red}{T} will be substituted with a concrete type argument.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class Present<@\textcolor{red}{T}@> {
+	    
+	    private @\textcolor{red}{T}@ present;
+	    
+	    public Present(@\textcolor{red}{T}@ present) {
+	        this.present = present;
+	    }
+	    
+	    public void print() {
+	        System.out.println("Present: " + this.present);
+	    }
+	}
+	\end{lstlisting}	
+\end{frame}
+
+\begin{frame}[fragile]{Class Book}
+	\begin{lstlisting}[escapechar=!]
+	public class Book {
+	    
+	    private String title;
+	    
+	    public Book(String title) {
+	        this.title = title;
+	    }
+	    
+	    @Override
+	    public String toString() {
+	        return this.title;
+	    }
+	}
+	\end{lstlisting}	
+\end{frame}
+
+\begin{frame}[fragile]{Gift-Wrap the Book}
+	The generic class \emph{Present} is used with \emph{Book} as type argument
+	for the type parameter T in \emph{Present}.
+	% gramar omg
+	\vfill
+	\begin{lstlisting}
+	public static void main (String[] args) {
+	    
+	    Book book = new Book("Harry Potter");	    
+	    Present<Book> present = new Present<Book>(book);
+	    
+	    present.print();
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Example - Object}
+\begin{frame}[fragile]{Class Present}
+	This example uses \emph{Object} instead of the generic type T.
+	Further there is a new method \texttt{public Object getPresent()}.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class Present {
+	    
+	    private Object present;
+	    
+	    public Present(Object present) {
+	        this.present = present;
+	    }
+	    
+	    public void print() {
+	        System.out.println("Present: " + this.present);
+	    }
+	    
+	    public Object getPresent() {
+	        return this.present;
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Unwrap the Book}
+	After gift-wrap the book there is a present containing that book.
+	\vfill
+	If we want to access the book in the present via \texttt{getPresent()} 
+	we have to \textcolor{red}{cast} it from \emph{Object} to \emph{Book}.
+	\begin{lstlisting}
+	public static void main (String[] args) {
+	    
+	    Book book = new Book("Harry Potter");	    
+	    Present present = new Present(book);
+	    
+	    Book newBook = @\textcolor{red}{(Book)}@ present.getPresent();
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Unwrap the Present}
+	If the content of the present is unknown then the content can be casted wrong.
+	A wrong cast causes an exception at runtime.
+	\vfill
+	\begin{lstlisting}
+	public static void main (String[] args) {
+	    
+	    Book book = new Book("Harry Potter");	    
+	    Present present = new Present(book);
+	    
+	    Toy toy = (Toy) present.getPresent();
+	}
+	\end{lstlisting}
+	\vfill
+	\emph{Do not forget to write a class Toy while testing this example.}
+\end{frame}
+
+\begin{frame}[fragile]{Conclusion}
+	\textbf{Use generics for more type safety.}
+	\vfill
+	Compile-time errors are easier to fix than runtime errors.
+\end{frame}
+
+\subsection{Restriction}
+\begin{frame}[fragile]{Single Bound Restriction}
+	You can restrict the variability of generic types with the keyword \textbf{extends}.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class Present<T extends Toy> {
+	    
+	    private T present;
+	    
+	    public Present(T present) {
+	        this.present = present;
+	    }
+	    
+	    public void print() {
+	        System.out.println("Present: " + this.present);
+	    }
+	}
+	\end{lstlisting}	
+\end{frame}
+
+\begin{frame}[fragile]{Example - Class Toy and Class DollHouse}
+	\begin{lstlisting}[escapechar=!, basicstyle=\ttfamily\scriptsize]
+	public class Toy {
+	    
+	    private String name;
+	    
+	    public Toy(String name) {
+	        this.name = name;
+	    }
+	    @Override
+	    public String toString() {
+	        return this.name;
+	    }
+	}
+	\end{lstlisting}
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class DollHouse extends Toy {
+	    
+	    public DollHouse(String name) {
+	        super(name);
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Example - Test}
+	Only instances of \emph{Toy} or instances of subclasses are allowed in a \emph{Present}.
+	Putting a \emph{Book} in a \emph{Present} will cause an error at compile-time.
+	\begin{lstlisting}
+	public static void main (String[] args) {
+	    
+	    Present<DollHouse> present1 = 
+	        new Present<DollHouse>(new DollHouse("")); 
+	    Present<Toy> present2 = 
+	        new Present<Toy>(new Toy("car"));
+	    
+	    present1.print();
+	    present2.print();
+	}
+	\end{lstlisting}
+\end{frame}
+
+%% multiple bounds with one class and many interfaces
+\begin{frame}[fragile]{Multiple Bound Restriction}
+	Let \emph{Playable} and \emph{Giftable} be interfaces and let \emph{Toy} be a class. \\
+	T can be substituted with either Toy and its subclasses 
+	or with the interfaces \emph{Playable}, \emph{Giftable}, their subinterfaces
+	and their implementations as type argument. \\
+	Multiple interfaces but \textbf{at most one class} are allowed.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class Present<T extends Toy & Playable & Giftable> {
+	    
+	    private T present;
+	    
+	    public Present(T present) {
+	        this.present = present;
+	    }
+	}
+	\end{lstlisting}	
+\end{frame}
+
+%TODO methods
+
+%\subsection{Wildcards}
+%\begin{frame}[fragile]{Wildcard $<$?$>$}
+%	\begin{lstlisting}
+%	public static void main (String[] args) {
+%
+%	    Present<DollHouse> present1 = 
+%	        new Present<DollHouse>(new DollHouse("")); 
+%	    Present<Toy> present2 = 
+%	        new Present<Toy>(new Toy("car"));
+%	}
+%	\end{lstlisting}
+%   Instead of \texttt{Present<Toy>} we can use the wildcard \texttt{Present<?>}.
+%	\begin{lstlisting}
+%	public static void main (String[] args) {
+%
+%	    Present<?> present1 = 
+%	        new Present<DollHouse>(new DollHouse("")); 
+%	    Present<?> present2 = 
+%	        new Present<Toy>(new Toy("car"));
+%	}
+%	\end{lstlisting}
+%\end{frame}
+%\begin{frame}[fragile]{Wishlist}
+%	\begin{lstlisting}
+%	public static void main (String[] args) {
+%	
+%	    Present<?>[] wishlist = new Present<?>[10];
+%
+%	    wishlist[0] = 
+%	        new Present<DollHouse>(new DollHouse("")); 
+%	    wishlist[1] = 
+%	        new Present<Toy>(new Toy("car"));
+%	}
+%	\end{lstlisting}
+%\end{frame}
+%
+%\begin{frame}{Guidelines}
+%	Oracle offers guidelines for wildcard use:\\
+%	\url{https://docs.oracle.com/javase/tutorial/java/generics/wildcardGuidelines.html}
+%\end{frame}
+
+\section{Collections}
+\subsection{Overview}
+\begin{frame}{Collections Framework}
+	Java offers various data structures like \textbf{Sets}, \textbf{Lists} and \textbf{Maps}.
+	Those structures are part of the collections framework.
+	\vfill
+	There are interfaces to access the data structures in an easy way.
+	There are multiple implementations for various needs.
+	Alternatively you can use your own implementations.
+	\vfill
+	For more information visit:
+	\begin{itemize}
+		\item \scriptsize\url{https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html}
+		\item \url{https://docs.oracle.com/javase/7/docs/api/java/util/Set.html}
+		\item \url{https://docs.oracle.com/javase/7/docs/api/java/util/List.html}
+		\item \url{https://docs.oracle.com/javase/7/docs/api/java/util/Map.html}
+	\end{itemize}
+\end{frame}
+
+\subsection{Set and List}
+\begin{frame}[fragile]{Set}
+	A set is a collection that holds one type of objects.
+	A set can not contain one element twice.
+	Like all collections the interface \emph{Set} is part of the package \texttt{java.util}.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	import java.util.*;
+
+	public class TestSet {
+	    
+	    public static void main(String[] args) {
+	        Set<String> set = new HashSet<String>();
+	    
+	        set.add("foo");
+	        set.add("bar");
+	        set.remove("foo");
+	        System.out.println(set); // prints: [bar]
+	    }
+	}
+	\end{lstlisting}
+	In the following examples \texttt{import java.util.*;} will be omitted.
+\end{frame}
+
+\begin{frame}[fragile]{List}
+	A list is an ordered collection.
+	\vfill
+	The implementation \texttt{LinkedList} is a double-linked list.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public static void main(String[] args) {
+	
+	    List<String> list = new LinkedList<String>();
+	    
+	    list.add("foo"); 
+	    list.add("foo"); // insert "foo" at the end
+	    list.add("bar");
+	    list.add("foo");
+	    list.remove("foo"); // removes the first "foo"
+	    
+	    System.out.println(list); // prints: [foo, bar, foo]
+	}
+	\end{lstlisting}
+\end{frame}
+	
+\begin{frame}[fragile]{List Methods}
+	some useful List methods:\\
+	\vspace{1em}
+	\begin{tabular}{ r l r }
+		void & \texttt{add(int index, E element)}
+		& \footnotesize{insert element at position index} \\
+		E &\texttt{get(int index)}
+		& \footnotesize{get element at position index} \\
+		E &\texttt{set(int index, E element)}
+		& \footnotesize{replace element at position index} \\
+		E &\texttt{remove(int index)}
+		& \footnotesize{remove element at position index}
+	\end{tabular}
+	\vfill
+	some useful LinkedList methods:\\
+	\vspace{1em}
+	\begin{tabular}{ r l r }
+		void & \texttt{addFirst(E element)}
+		& \footnotesize{append element to the beginning} \\
+		E & \texttt{getFirst()}
+		& \footnotesize{get first element} \\
+		void & \texttt{addLast(E element)}
+		& \footnotesize{append element to the end} \\
+		E & \texttt{getLast()}
+		& \footnotesize{get last element}
+	\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]{Wrapper Class}
+	Primitive data types can not be elements in collections. 
+	Use wrapper classes like \emph{Integer} instead.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public static void main(String[] args) {
+	
+	    LinkedList<Integer> list = new LinkedList<Integer>();
+	    
+	    list.add(3); 
+	    list.addFirst(1);
+	    list.add(3);
+	    list.add(8);
+	    list.remove(3); // remove the 4th element
+	    list.add(7);
+	    
+	    System.out.println(list); // prints: [1, 3, 3, 7]
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Iterating}
+\begin{frame}[fragile]{For Loop}
+	The for loop can iterate over every element of a collection:\\
+	\hspace{1em}\texttt{for (E e : collection)}
+	\begin{lstlisting}
+	public static void main(String[] args) {
+	
+	    List<Integer> list = 
+	        new LinkedList<Integer>();
+	    
+	    list.add(1);
+	    list.add(3);
+	    list.add(3);
+	    list.add(7);
+	    
+	    for (Integer i : list) {
+	        System.out.print(i + " "); // prints: 1 3 3 7
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Iterator}
+	An iterator iterates step by step over a collection.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public static void main(String[] args) {
+	
+	    List<Integer> list = new LinkedList<Integer>();
+	    
+	    list.add(1);
+	    list.add(3);
+	    list.add(3);
+	    list.add(7);
+	    
+	    Iterator<Integer> iter = list.iterator();
+	    
+	    while (iter.hasNext()) {
+	        System.out.print(iter.next());
+	    }
+	    // prints: 1337
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Iterator}
+	A standard iterator has only three methods:
+	\begin{itemize}
+	\item \texttt{boolean hasNext()} - indicates if therer are more elements
+	\item \texttt{E next()} - returns the next element
+	\item \texttt{void remove()} - returns the current element
+	\end{itemize}
+	\vspace{1em}
+	The iterator is instanced via \texttt{collection.iterator()} :
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	    Collection<E> collection = new Implementation<E>;
+	    Iterator<E> iter = collection.iterator();
+	\end{lstlisting}
+	Special iterators like \emph{ListIterator} are more sophisticated.
+\end{frame}
+
+\subsection{Map}
+\begin{frame}[fragile]{Map}
+	The interface \emph{Map} is not a subinterface of \emph{Collection}.\\
+	A map contains pairs of key and value. Each key refers to a value. 
+	Two keys can refer to the same value. There are not two equal keys in one map.
+	\emph{Map} is part of the package \texttt{java.util}.
+	\vfill
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public static void main (String[] args) {
+	
+	    Map<Integer, String> map = 
+	        new HashMap<Integer, String>();
+	    
+	    map.put(23, "foo");
+	    map.put(28, "foo");
+	    map.put(31, "bar");
+	    map.put(23, "bar"); // "bar" replaces "foo" for key = 23
+	    
+	    System.out.println(map);
+	    // prints: {23=bar, 28=foo, 31=bar}
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{KeySet and Values}
+	You can get the set of keys from the map.
+	Because one value can exist multiple times a collection is used for the values.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public static void main (String[] args) {
+	
+	    // [...] map like previous slide
+	    
+	    Set<Integer> keys = map.keySet();
+	    Collection<String> values = map.values();
+	    
+	    System.out.println(keys);
+	    // prints: [23, 28, 31]
+	    
+	    System.out.println(values);
+	    // prints: [bar, foo, bar]
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Iterator}
+	Therer is no iterator for maps. 
+	To iterate over a map use the iterator from the set of keys.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public static void main (String[] args) {
+	
+	    // [...] map, keys, values like previous slide    	    
+	    Iterator<Integer> iter = keys.iterator();
+	    
+	    while(iter.hasNext()) {
+	        System.out.print(map.get(iter.next()) + " ");
+	    } // prints: bar foo bar
+	    
+	    System.out.println(); // print a line break
+	    
+	    for(Integer i: keys) {
+	        System.out.print(map.get(i) + " ");
+	    } // prints: bar foo bar
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Nested Maps}
+	Nested maps offer storage with key pairs.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public static void main (String[] args) {		
+	
+	    Map<String, Map<Integer, String>> addresses = 
+		    new HashMap<String, Map<Integer, String>>();
+		
+	    addresses.put("Noethnitzer Str.", 
+	        new HashMap<Integer, String>());
+		
+	    addresses.get("Noethnitzer Str.").
+	        put(46, "Andreas-Pfitzmann-Bau");
+	    addresses.get("Noethnitzer Str.").
+	        put(44, "Fraunhofer IWU");
+	}
+	\end{lstlisting}
+\end{frame}
+
+\end{document}
