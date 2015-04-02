@@ -163,30 +163,6 @@
 
 \section{Lost Stuff}
 \subsection{}
-\begin{frame}{? Operator}
-	\texttt{\textcolor{orange}{condition} \textcolor{red}{?} \textcolor{blue}{case1} 
-		\textcolor{red}{:} \textcolor{gray}{case2} ;}
-	\vfill
-	If the \textcolor{orange}{condition} is true \textcolor{blue}{case1} will be executed.
-	If not \textcolor{gray}{case2} will be executed instead.
-\end{frame}
-\begin{frame}[fragile]{? Operator - Example}
-	Both methods do the same.
-	\vfill
-	\begin{lstlisting}
-	public String boolToString1(boolean blub) {
-	    return blub ? "yes" : "nope";
-	}
-	
-	public String boolToString2(boolean blub) {
-	    if (blub) {
-	        return "yes";
-	    } else { 
-	        return "nope";
-	    }
-	}
-	\end{lstlisting}
-\end{frame}
 \begin{frame}[fragile]{Constructors with this}
 	Remember: \textbf{this} is a reference to the current object.
 	\vfill
