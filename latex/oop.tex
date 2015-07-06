@@ -2,8 +2,35 @@
 
 \title{Java}
 \subtitle{Object-Oriented Programming}
-\author{FSR Informatik}
+\author{Nico Westerbeck}
 \date{\today}
+
+\tikzset{
+  every overlay node/.style={
+    draw=black,fill=white,rounded corners,anchor=north west,
+  },
+}
+% Usage:
+% \tikzoverlay at (-1cm,-5cm) {content};
+% or
+% \tikzoverlay[text width=5cm] at (-1cm,-5cm) {content};
+\def\tikzoverlay{%
+   \tikz[baseline,overlay]\node[every overlay node]
+}%
+
+\lstset{language=Java,
+	basicstyle=\ttfamily\footnotesize,
+	keywordstyle=\color{purple},
+	commentstyle=\color{darkgreen},
+	numberstyle=\tiny\color{gray},
+	stringstyle=\color{blue},
+	tabsize=4,
+	showstringspaces=false,
+	breaklines=true,
+	keepspaces=true,
+	numbers=left,
+	escapechar=§
+}
 
 \begin{document}
 
@@ -15,124 +42,136 @@
 \end{frame}
 
 \section{Introduction}
-\subsection{What is OOP}
+\subsection{Recalling last session}
+\begin{frame}{Java-tools}
+	Datatypes
+	\begin{itemize}
+		\item int, long
+		\item float, double
+		\item String
+	\end{itemize}
+	Control statemenets
+	\begin{itemize}
+		\item if, else if, else
+		\item while
+		\item for
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Mind-tools}
+	\begin{center}
+		{\huge Think in code!}
+		% Key of imperative programming: Breaking down a complex command into a sequence of easier ones
+		% Know, which commands already exist
+		% Know, what you have to store (variables)
+		
+		% Tasks for audience to answer "in code":
+		% Example: Count the number of 'e' in a String
+		% Remove all uppercase letters within a String and add them to the end of that String
+		% Check if Random class is fair when generating numbers between 0 and 5
+		% Take a speed in km/h and output the miles/h version and vice versa
+		% Check if a password-String contains a number, a lowercase-letter and an uppercase letter
+		% Check if a (small) number is a prime number
+		% Check if String is palindrome
+		% Zahlenraten!
+	\end{center}
+\end{frame}
+
+\subsection{Think in Objects}
+
 \begin{frame}{}
-	Java is an object-oriented programming\footnote{OOP} language. \\
-	\vspace{1em}
-	The world of java consists of interacting objects. Those objects have a \textbf{state}, 
-	a \textbf{behavior} and (maybe) a \textbf{relationship} to each other.
+	\begin{center}
+		\uncover<1-2>{\huge Think in objects!}
+		% The representation of a certain class of contributors in a problem.
+		% What is a
+		
+		% Instance vs Object
+		
+		\uncover<2-2>{\vspace{0.5cm}\normalsize The representation of a certain contributor to a problem}
+		
+		% Problem:
+		%	- Your task, that you want to solve with Java
+		%	- Since problem is negative, let's call it challenge ;)
+		
+		% Contributors:
+		%	- Things that you need to think about/that get noted if you write down your problem
+		%	- Have a state and a behaviour within the challenge
+		%	- Fairytale-rule: Everything that could get a name, if you make a fairytale out of your challenge, is an object
+
+		% Representation:
+		% 	- Limited to the possibilities of the programming language:
+		% 	- State = Fields, Variables
+		%	- Behaviour = Methods
+		%	- Can only be an instance of a class
+		%	- Dafuq is a class and an instance? Later...
+		
+		% Let them identify some objects on next slides:
+	\end{center}
 \end{frame}
 
-\begin{frame}{An Example}
-	You want to program an enrollment system, for a programming course. \\
-	\vspace{1em}
-	Your classes are:\\
-	\begin{description}
-		\item[student] who wants to attend the course
-		\item[lesson] which is a part of the course
-		\item[time slice] when your lessons are
-		\item[room] where your lessons take place
-		\item[\dots]
-	\end{description}
-	The more you think about it, the more complex this program becomes.
-	Focus on the relevant things.
-\end{frame}
-	
-\begin{frame}{Terminology} % redundant explanation - always a good thing
-	Java knows \textbf{Classes} and \textbf{Objects}. A class is like a blueprint for an object. 
-	With one blueprint you can build multiple objects of the same kind. \\
-	\vspace{1em}
-	For example: the class \emph{Student}\footnote{Remember: class names always start with a capital letter.} describes a student in general. 
-	The objects - build from this class - describe each student in particular. \\
-	Each (real-life) student has one object representing him in the enrollment system.
+\section{Identifying objects}
+\subsection{Examples}
+
+\begin{frame}{}
+	\begin{center}
+		\includegraphics[width=11cm]{res/lotr-shire.jpg}
+	\end{center}
 \end{frame}
 
-
-\section{Classes and Objects}
-\subsection{Class}
-\begin{frame}{Class Structure}
-	A class contains \textbf{attributes}. Those hold the state of the object built from this class. 
-	A student may have the attributes \emph{name} and \emph{matriculation number}. \\
-	\vspace{1em}
-	A class also contain \textbf{methods}. Those define the abilities of the object built from this class.
-	A student is able to \emph{print his timetable}. Maybe a student have methods to change some of his attributes.
+\begin{frame}{}
+	\begin{center}
+		\includegraphics[height=7cm]{res/grass-plant.png}
+	\end{center}
 \end{frame}
+
+\begin{frame}{}
+	\begin{center}
+		\includegraphics[height=7cm]{res/ticket-vending-machine.jpg}
+	\end{center}
+\end{frame}
+
+\subsection{Class vs Instance}
+
+\begin{frame}{}
+	\begin{center}
+		{\huge Class vs Instances - the Peter-rule}
+		%	Object-instance can be named Peter
+		%	Object-class can be put into an encyclopedia
+		% Example: (Show ticket, name it Peter) is an instance, Viererticket is a class
+		%   Class is like a blueprint, Instance is the existing object
+		%	This is why instance is sometimes refered to as an object
+		% Go back to images and let them identify classes
+		% Then let them identify classes in a student enrollment system (Student should be amongh that)
+	\end{center}
+\end{frame}
+
+\section{OOP in Java}
+\subsection{General information}
 
 \begin{frame}[fragile]{Class \emph{Student}}
-	\begin{lstlisting}
-	public class Student {
+\begin{lstlisting}
+public class Student {
+
+	// Attributes
+	private String name; 
+	private int matriculationNumber; 
 	
-	    // attributes:
-	    String name;
-	    int matriculationNumber;	
-	
-	    // method 1
-	    public void printTimetable() {
-	        System.out.println("my timetable");
-	    }
-	    
-	    // method 2
-	    public void changeName(String name) {
-	    }
+	/**
+	 * Changes the name
+	 * @param name The new name of the student
+	 */
+	public void changeName(String name) {
+		this.name = name;
 	}
-	\end{lstlisting}
-\end{frame}
+}
+\end{lstlisting}
 
-\begin{frame}[fragile]{Class \emph{Student} - head}
-	\begin{lstlisting}
-	public class Student {
-	
-	}
-	\end{lstlisting}
-	This is the head of the class. \\
-	The word \textbf{public} states the visibility of the class.
-	We discuss this issue later. The word \textbf{class} marks this whole structure as a class.
-	\emph{Student} is the name of the class. \\
-	The curly brackets do not belong to the class head, but encapsulate the body.
-\end{frame}
+% What is visible here:
+% Attributes store the state of the object
+% Methods implement the behaviour of the object
 
-\begin{frame}[fragile]{Class \emph{Student} - body}
-	\begin{lstlisting}
-	    // attributes:
-	    String name;
-	    int matriculationNumber;	
-	
-	    // method 1
-	    public void printTimetable() {
-	        System.out.println("my timetable");
-	    }
-	    
-	    // method 2
-	    public void changeName(String name) {
-	    }
-	\end{lstlisting}
-	This is the body of the class. The body contains the \textbf{attributes} and the \textbf{methods}.
-\end{frame}
 
-\begin{frame}[fragile]{Class \emph{Student} - attributes}
-	\begin{lstlisting}
-	    // attributes:
-	    String name;
-	    int matriculationNumber;	
-	\end{lstlisting}
 \end{frame}
-
-\begin{frame}[fragile]{Class \emph{Student} - methods}
-	\begin{lstlisting}
-	    // method 1
-	    public void printTimetable() {
-	        System.out.println("my timetable");
-	    }
-	    
-	    // method 2
-	    public void changeName(String name) {
-	    }
-	\end{lstlisting}
-	Inside a method are the instructions for the program. Always remember that. 
-	\emph{A common mistake is to place instructions outside of a method.}
-\end{frame}
-
-\subsection{Object}
 
 \begin{frame}[fragile]{Creation}
 	We learned how to declare and assign a primitive datatype.
@@ -149,71 +188,57 @@
 	The variable\footnote{in this listing \emph{example}} is called the \textbf{reference}.
 \end{frame}
 
-\section{Methods}
 \subsection{Methods}
-\begin{frame}[fragile, allowframebreaks]{Calling a Method}
+\begin{frame}[fragile]{Calling a Method}
 	\begin{lstlisting}
 	public class Student {
+		private String name;
 	
-	    public void printTimetable() {
-	        System.out.println("my timetable");
+	    public void changeName(String newName) {
+			name = newName;
 	    }
 	    
 	    public void printName() {
-	        System.out.println("Jane");
+	        System.out.println(name);
 	    }
 	}
 	\end{lstlisting}
 	The class \emph{Student} has two methods: \emph{void printTimetable()} and \emph{void printName()}.
-	\begin{lstlisting}
-	public class EnrollmentSystem {
+\end{frame}
+
+\begin{frame}[fragile]{Calling a Method}
+\begin{lstlisting}
+	public class Main {
 	    
 	    public static void main(String[] args) {
-	        System.out.println("hello");
 	        Student example = new Student(); // creation
-	        example.printTimetable(); // method call
+	        example.changeName("Jane"); // method call
+	        example.printName(); // Prints "Jane"
 	    }
 	}
 	\end{lstlisting}
-	You can call a method of an object after its creation with \textbf{reference.methodName()}.
+	You can call a method of an object after its creation with \textbf{reference.methodName();}.
 \end{frame}
 
-\subsection{Main Method}
-\begin{frame}[fragile]{Main Method}
-	Which line will be printed?
-	\begin{lstlisting}
-	public class EnrollmentSystem {
+\begin{frame}[fragile]{Calling a Method}
+\begin{lstlisting}
+	public class Student {
+		private String name;
 	
-	    public void test() {
-	        System.out.println("test");
+	    public void changeName(String newName) {
+			name = newName;
+			printName();   // Call own method
+			this.printName(); // Or this way
 	    }
 	    
-	    public static void main(String[] args) {
-	        System.out.println("hello");
+	    public void printName() {
+	        System.out.println(name);
 	    }
 	}
 	\end{lstlisting}
+	You can call a method of the own object by simply writing \textbf{methodName();} or \textbf{this.methodName();}
 \end{frame}
 
-\begin{frame}[fragile]{Main Method}
-	Only the line \emph{hello} will be printed. 
-	Each Java program starts in the \textbf{main method}. 
-	Other methods have to be called.
-	\begin{lstlisting}
-	public class EnrollmentSystem {
-	
-	    public void test() {
-	        System.out.println("test");
-	    }
-	    
-	    public static void main(String[] args) {
-	        System.out.println("hello");
-	    }
-	}
-	\end{lstlisting}
-\end{frame}
-
-\subsection{Arguments}
 \begin{frame}[fragile]{Methods with Arguments}
 	You can call a method with e.g. two arguments via \texttt{methodName(arg1, arg2)}.
 	\begin{lstlisting}
@@ -234,42 +259,6 @@
 	\end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Methods with Arguments - another Example}
-	\begin{lstlisting}
-	public class Calc {
-	
-	    public void concatenate(String base, int supplement) {
-	        System.out.println(base + supplement);
-	    }
-	    
-	    public static void main(String[] args) {
-	        String part1 = "1";
-	        int part2 = 2;
-	        Calc calculator = new Calc();
-	        System.out.print("1 + 2 = ");
-	        calculator.concatenate(part1, part2); // prints: 12
-	    }
-	}
-	\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Methods with Arguments - yet another Example}
-	\begin{lstlisting}
-	public class Calc {
-	
-	    public void concatenate(String base, int supplement) {
-	        System.out.println(base + supplement);
-	    }
-	    
-	    public static void main(String[] args) {
-	        Calc calculator = new Calc();
-	        System.out.print("1 + 2 = ");
-	        calculator.concatenate("1", 2); // prints: 12
-	    }
-	}
-	\end{lstlisting}
-\end{frame}
-
 \subsection{Return Value}
 \begin{frame}[fragile]{Methods with Return Value}
 	A method without a return value is indicated by \textbf{void}:
@@ -284,7 +273,7 @@
 	    return summand1 + summand2;
 	}
 	\end{lstlisting}
-	%% TODO explain return statement
+	% TODO explain return statement
 \end{frame}
 
 \begin{frame}[fragile]{Calling Methods with a return value}
@@ -304,199 +293,99 @@
 	\end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Nested Calls}
-	You can nest your method calls.
+\subsection{Constructor}
+
+\begin{frame}[fragile]{Constructors}
 	\begin{lstlisting}
 	public class Calc {
+		private int summand1;
+		private int summand2;
 	
-	    public int add(int summand1, int summand2) {
-	        return summand1 + summand2;
-	    }
-	    
-	    public static void main(String[] args) {
-	        Calc calc = new Calc();
-	        int sum = calc.add(3, calc.add(8, 5));
-	        System.out.print("3 + 8 + 5 = " + sum); 
-	        // prints: 3 + 8 + 5 = 16
+	    public Calc() {
+			summand1 = 0;
+			summand2 = 0;
 	    }
 	}
 	\end{lstlisting}
+	A constructor gets called upon creation of the object
 \end{frame}
 
-\section{Working with Objects}
-\subsection{Attributes}
-\begin{frame}[fragile]{Attributes in a Class}
-	An \textbf{attribute} is similar to a variable, but declared outside a method\footnote{But still inside the class body} 
-	and hence accessible by all methods of the class.
-	The attributes represent the state of an object.
+\begin{frame}[fragile]{Constructors with Arguments}
 	\begin{lstlisting}
-	public class Student {
+	public class Calc {
+		private int summand1;
+		private int summand2;
 	
-	    public String name;
-	    
-	    public void printName() {
-	        System.out.println(name);
+	    public Calc(int x, int y) {
+			summand1 = x;
+			summand2 = x;
 	    }
 	}
+	[...]
+	Calc myCalc = new Calc(7, 9);
 	\end{lstlisting}
+	A constructor can have Arguments aswell!
 \end{frame}
 
-\begin{frame}[fragile]{Direct Access}
-	You can access an attribute directly using the \textbf{dot operator}\footnote{\textbf{+ - . =} are called operators} without round brackets.
-	\begin{lstlisting}
-	public class EnrollmentSystem {
-	    
-	    public static void main(String[] args) {
-	        Student example = new Student();
-	        example.name = "Jane Doe";
-	        example.printName();
-	    }
-	}
-	\end{lstlisting}
+\section{Conclusion}
+\subsection{An Example}
+
+\begin{frame}{An Example}
+	You want to program an enrollment system, for a programming course. \\
+	\vspace{1em}
+	Your classes are:\\
+	\begin{description}
+		\item[student] who wants to attend the course
+		\item[lesson] which is a part of the course
+		\item[tutor] the guy with the bandshirt
+		\item[room] where your lessons take place
+		\item[\dots]
+	\end{description}
+% 	The more you think about it, the more complex this program becomes.
+% 	Focus on the relevant things.
+%	Think about how the objects can be in relation, this will be discussed later
+%	Show prepared classes in Java
 \end{frame}
 
-\begin{frame}[fragile]{Multiple Objects}
-	Multiple objects may differ in the value of their attributes.
-	\begin{lstlisting}
-	public class EnrollmentSystem {
-	    
-	    public static void main(String[] args) {
-	        Student exampleA = new Student();
-	        Student exampleB = new Student();
-	        exampleA.name = "Jane Doe";
-	        exampleB.name = "Julius Doe";
-	        exampleA.printName();
-	        exampleB.printName();
-	    }
-	}
-	\end{lstlisting}
+\begin{frame}{Your task}
+
+\begin{itemize}
+	\item Hope for your tutor to send the classes he showed
+	\item Open+compile them in Eclipse
+	\item Look at them, find something I did not explain yet ;-)
+	\item Add 3 more methods to any of the classes
+	\item Add 3 more fields and use them in your methods
+	\item Call at least 1 of the methods in a given one
+\end{itemize}
+
 \end{frame}
 
-\subsection{this}
-\begin{frame}[fragile]{this}
-	The keyword \textbf{this} is a \textbf{reference} to the current object. 
-	So you can access the object from inside the object.
-	\begin{lstlisting}
-	public class Student {
+
+% \begin{frame}[fragile]{Class \emph{Student}}
+% \begin{lstlisting}
+% /**
+%  * Main method
+%  */
+% public static void main(String[] args) {
+% 	Student peter = new Student();
+% 	peter.changeName("Peter");
+% }
+% \end{lstlisting}
+% \end{frame}
+
+\subsection{Credits}
+
+\begin{frame}{Images stolen at:}
+	\tiny
+	\begin{itemize}
+		\item \textbf{Shire image} Taken from film Lord of the Ring - The Fellowship of the Ring
+		\item \textbf{Grass schema} By Thorsten Schmidt, via Wikimedia Commons
+		\item \textbf{Ticket-vending-machine} By Thorsten Schmidt, via Wikimedia Commons
+	\end{itemize}
 	
-	    public String @\textcolor{gray}{\texttt{name}}@;
-	    
-	    public void changeName(String @\textcolor{red}{\texttt{name}}@) {
-	        this.@\textcolor{gray}{\texttt{name}}@ = @\textcolor{red}{\texttt{name}}@;   
-	    }
-	}
-	\end{lstlisting}
-	The local scope of \textcolor{red}{\texttt{name}} overrides the class scope of \textcolor{gray}{\texttt{name}}. 
-	Without \textbf{this} you can not access the variable \textcolor{gray}{\texttt{name}} in this specific method.
 \end{frame}
 
-\begin{frame}[fragile, allowframebreaks]{Calling a Method inside a Class}
-	\begin{lstlisting}
-	public class Student {
-	
-	    public void printTimetable() {
-	        this.printName(); // call another method
-	        System.out.println("my timetable");
-	    }
-	    
-	    public void printName() {
-	        System.out.println("Jane");
-	    }
-	}
-	\end{lstlisting}
-	A method can call other methods inside the same class.
-	\begin{lstlisting}
-	public class EnrollmentSystem {
-	    
-	    public static void main(String[] args) {
-	        System.out.println("hello");
-	        Student example = new Student(); // creation
-	        example.printTimetable(); // method call
-	    }
-	}
-	\end{lstlisting}
-\end{frame}
-
-\subsection{Constructor}
-\begin{frame}[fragile]{Constructor}
-	The \textbf{constructor} is a special method, which is invoked while creating the object. 
-	This method has the same name as the class. It is often used to initialize the attributes.
-	The constructor has no return value. 
-	This \textbf{must not} be indicated with void.
-	\begin{lstlisting}	
-	public class Student {
-	
-	    public String name;
-	    
-	    public Student() {
-	        this.name = "Jane Doe"; 
-	    }
-	}
-	\end{lstlisting}	
-\end{frame}
-\begin{frame}[fragile]{Call the Constructor}
-	\begin{lstlisting}	
-	public class EnrollmentSystem {
-	    
-	    public static void main(String[] args) {
-	        Student example = new Student();
-	        System.out.println(example.name);
-	        // prints: Jane Doe
-	    }
-	}
-	\end{lstlisting}	
-\end{frame}
-\begin{frame}[fragile]{Constructor with arguments}
-	A constructor can take arguments.
-	\begin{lstlisting}	
-	public class Student {
-	
-	    public String name;
-	    
-	    public Student(String name) {
-	        this.name = name;	    
-	    }
-	}
-	\end{lstlisting}	
-\end{frame}
-\begin{frame}[fragile]{Call the Constructor with arguments}
-	\begin{lstlisting}	
-	public class EnrollmentSystem {
-	    
-	    public static void main(String[] args) {
-	        Student exampleA = new Student("Jane Doe");
-	        Student exampleB = new Student("Julius Doe");
-	    }
-	}
-	\end{lstlisting}	
-\end{frame}
-
-
-% \section{Conclusion} %%% TODO
-
-%% repetition: an obj can be used as complex data structure vs. primitive
-	%% like student data as a student
-%% most of the time objects are actors. 
-%% The also represent non touchable things in world. Such as: Time, Weather
-%% OBJ used to model abstract things:
-	%% GUI: window, button, etc.
-	%% Role, Supervisor
-
-%% TODO avoid talking about references without explaining them	
-%% TODO slide about references (maybe in a later slide set):
-%% Every object is handled by Java through a reference
-%% This means, when you move or assign an object, only the reference gets moved, 
-%% the object stays in the same position in your computers memory.
-%% if a reference is shared, everyone who shares it, influences the same object! No copies are made!
-%%
-%% Example:
-%% Student student1 = new Student();
-%% Student student2 = student1; // share reference of student1
-%% student1.name = "Peter"; // influence the object
-%% System.out.println(student2.name); // prints "Peter"
-%%
-%% Also: draw a sketch.
-
+% Next lesson: Using classes provided in Java
 
 
 \end{document}
