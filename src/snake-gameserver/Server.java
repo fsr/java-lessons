@@ -57,6 +57,20 @@ public class Server {
 			}
 		}
 	}
+	
+	public void removeDeadClients() {
+		synchronized(clients) {
+			ListIterator<ClientHandler> i = clients.listIterator();
+			while(i.hasNext()) {
+				ClientHandler tmp = i.next();
+
+				if(!tmp.isAlive() || !tmp.isRunning()) {
+					i.remove();
+					continue;
+				}
+			}
+		}
+	}
 
 	public Server() {
 		clients = new LinkedList<ClientHandler>();

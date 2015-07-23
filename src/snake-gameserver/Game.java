@@ -2,6 +2,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+// TODO: Bug, if a registered player disconnects, he is not removed from the ready queue and his spot is not deallocated
+
 public class Game extends Thread {
 	public class Field {
 		public static final int height = 10;

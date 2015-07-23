@@ -17,7 +17,7 @@ public class Client {
 				"--- General commands\n" +
 				"help - Displays this help message\n" +
 				"task - Tells you what you have to do to win\n" +
-				"echo - Not really useful, sends back what you passed as parameter\n" +
+				"echo - Broadcasts your message to all clients\n" +
 				"ready - Tells the server that you want to participate in the next game. It will reject if the maximum number of players is already reached or another game is currently running\n" +
 				"start - Request the server to start a game. It will reject if the minimum number of players is not yet reached. You can pass a frametime in ms as parameter\n" +
 				"status - Show some status information about the server\n" +
@@ -51,7 +51,13 @@ public class Client {
 	}
 	
 	public String echo(String parameters, ClientHandler caller) {
-		return parameters;
+		// Remove some illegal messages
+		parameters.replaceAll("fieldbegin", "");
+		parameters.replaceAll("fieldend", "");
+		parameters.replaceAll("fuck", "f**k");
+		
+		Server.instance().broadcast("Broadcast message from " + caller.getInetAddress().getHostAddress() + ": " + parameters);
+		return null;
 	}
 	
 	public String ready(String parameters, ClientHandler caller) {
