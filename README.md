@@ -12,5 +12,10 @@ Die Reihenfolge für den Kurs:
 8. debugging
 9. javadoc
 10. GUI
-11. testing
-12. regex
+11. abstract
+12. testing
+13. regex
+
+auf Deutsch vorhanden:
+
+1. introduction
