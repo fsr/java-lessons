@@ -2,7 +2,7 @@
 
 \title{Java}
 \subtitle{Generics and Collections}
-\author{FSR Informatik}
+\author{Nico Westerbeck}
 \date{\today}
 
 \begin{document}
@@ -14,247 +14,149 @@
 \tableofcontents
 \end{frame}
 
-\section{Generics}
-\subsection{Example - Generic Class}
-\begin{frame}[fragile]{Generic Class Present}
-	\textcolor{red}{T} is a generic type. 
-	The type parameter \textcolor{red}{T} can represent any class, for example \emph{String}.
-	While compiling \textcolor{red}{T} will be substituted with a concrete type argument.
-	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
-	public class Present<@\textcolor{red}{T}@> {
-	    
-	    private @\textcolor{red}{T}@ present;
-	    
-	    public Present(@\textcolor{red}{T}@ present) {
-	        this.present = present;
-	    }
-	    
-	    public void print() {
-	        System.out.println("Present: " + this.present);
-	    }
-	}
-	\end{lstlisting}	
+\section{Introduction}
+
+\subsection{Last session}
+\begin{frame}{Inheritance}
+	\begin{center}
+		\includegraphics[height=7cm]{res/inheritance-diagram.jpg}
+	\end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Class Book}
-	\begin{lstlisting}[escapechar=!]
-	public class Book {
-	    
-	    private String title;
-	    
-	    public Book(String title) {
-	        this.title = title;
-	    }
-	    
-	    @Override
-	    public String toString() {
-	        return this.title;
-	    }
+\section{Static Methods}
+\subsection{Static Methods}
+\begin{frame}[fragile]{Calling static Methods}
+\begin{lstlisting}
+	class EnrollmentSystem {
+		public static void doSomething() {
+		}
 	}
-	\end{lstlisting}	
+	
+	[...]
+	EnrollmentSystem example = new EnrollmentSystem();
+	example.doSomething(); // Works
+	
+	EnrollmentSystem.doSomething();  // Works aswell
+	
+\end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Gift-Wrap the Book}
-	The generic class \emph{Present} is used with \emph{Book} as type argument
-	for the type parameter T in \emph{Present}.
-	% gramar omg
-	\vfill
+\begin{frame}[fragile]{No fields available!}
+\begin{lstlisting}
+	class EnrollmentSystem {
+		private int x;
+		
+		public static void doSomething() {
+			x = 5;  // Does not work!
+		}
+	}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{No fields available!}
+\begin{lstlisting}
+	class EnrollmentSystem {
+		private static int x;
+		
+		public static void doSomething() {
+			x = 5;  // Works
+		}
+	}
+\end{lstlisting}
+Avoid this unless you know what it does!
+\end{frame}
+
+\section{A glimpse into Generics}
+\subsection{What is a generic}
+\begin{frame}[fragile]{Generics}
+	% Ask who has seen something like this already
 	\begin{lstlisting}
-	public static void main (String[] args) {
-	    
-	    Book book = new Book("Harry Potter");	    
-	    Present<Book> present = new Present<Book>(book);
-	    
-	    present.print();
-	}
+	List<Tutor> list1 = new LinkedList<Tutor>();
+	List<Student> list2 = new LinkedList<Student>();
 	\end{lstlisting}
+
 \end{frame}
 
-\subsection{Example - Object}
-\begin{frame}[fragile]{Class Present}
-	This example uses \emph{Object} instead of the generic type T.
-	Further there is a new method \texttt{public Object getPresent()}.
+\begin{frame}[fragile]{Generics}
+% Bad example, but okay for first impression
+% Bad because: 
+%  An array is not linked
+%  A fixed array size is evil
+%  An array is somewhat tricky to initialise generically
+\begin{lstlisting}
+public class LinkedList<T> {
+	T[] items;
+	int nextFreeItem;
+	
+	public void add(T newItem) {
+		items[nextFreeItem] = newItem;
+		nextFreeItem++;
+	}
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Why they suck}
+	\begin{itemize}
+		\item You can not use operators on them
+		\item Compile-time-generics only
+		\item Can't use builtin-types, needs wrapper classes (see next slides)
+		\item Wildcarting: List<?>
+	\end{itemize}
+	$=>$ I won't teach them in detail
+\end{frame}
+
+\subsection{Wrapper Classes}
+
+\begin{frame}[fragile]{Wrapper Class}
+	Primitive data types can not be elements in collections. 
+	Use wrapper classes like \emph{Integer} instead.
 	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
-	public class Present {
+	public static void main(String[] args) {
+	
+	    LinkedList<Integer> list = new LinkedList<Integer>();
 	    
-	    private Object present;
+	    list.add(3); 
+	    list.addFirst(1);
+	    list.add(3);
+	    list.add(8);
+	    list.remove(3); // remove the 4th element
+	    list.add(7);
 	    
-	    public Present(Object present) {
-	        this.present = present;
-	    }
-	    
-	    public void print() {
-	        System.out.println("Present: " + this.present);
-	    }
-	    
-	    public Object getPresent() {
-	        return this.present;
-	    }
+	    System.out.println(list); // prints: [1, 3, 3, 7]
 	}
 	\end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Unwrap the Book}
-	After gift-wrap the book there is a present containing that book.
-	\vfill
-	If we want to access the book in the present via \texttt{getPresent()} 
-	we have to \textcolor{red}{cast} it from \emph{Object} to \emph{Book}.
-	\begin{lstlisting}
-	public static void main (String[] args) {
-	    
-	    Book book = new Book("Harry Potter");	    
-	    Present present = new Present(book);
-	    
-	    Book newBook = @\textcolor{red}{(Book)}@ present.getPresent();
-	}
-	\end{lstlisting}
+\begin{frame}{Wrapper Class}
+	\begin{center}
+		\begin{tabular}{ c  c }
+			boolean & Boolean \\
+			byte & Byte \\
+			char & Character \\
+			int & Integer \\
+			float & Float \\
+			double & Double \\
+			long & Long \\
+			short & Short
+		\end{tabular}
+	\end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Unwrap the Present}
-	If the content of the present is unknown then the content can be casted wrong.
-	A wrong cast causes an exception at runtime.
-	\vfill
-	\begin{lstlisting}
-	public static void main (String[] args) {
-	    
-	    Book book = new Book("Harry Potter");	    
-	    Present present = new Present(book);
-	    
-	    Toy toy = (Toy) present.getPresent();
-	}
-	\end{lstlisting}
-	\vfill
-	\emph{Do not forget to write a class Toy while testing this example.}
-\end{frame}
-
-\begin{frame}[fragile]{Conclusion}
-	\textbf{Use generics for more type safety.}
-	\vfill
-	Compile-time errors are easier to fix than runtime errors.
-\end{frame}
-
-\subsection{Restriction}
-\begin{frame}[fragile]{Single Bound Restriction}
-	You can restrict the variability of generic types with the keyword \textbf{extends}.
+\begin{frame}[fragile]{Wrapper Class}
+	Wrapper classes hold extra functionality related to their datatype
 	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
-	public class Present<T extends Toy> {
+	public static void main(String[] args) {
+	
+	    Integer example = Integer.valueOf("12345");
 	    
-	    private T present;
+	    System.out.println(example);  // Prints 12345
 	    
-	    public Present(T present) {
-	        this.present = present;
-	    }
+	    System.out.println(Integer.toBinaryString(example)); // Prints 11000000111001
 	    
-	    public void print() {
-	        System.out.println("Present: " + this.present);
-	    }
-	}
-	\end{lstlisting}	
-\end{frame}
-
-\begin{frame}[fragile]{Example - Class Toy and Class DollHouse}
-	\begin{lstlisting}[escapechar=!, basicstyle=\ttfamily\scriptsize]
-	public class Toy {
-	    
-	    private String name;
-	    
-	    public Toy(String name) {
-	        this.name = name;
-	    }
-	    @Override
-	    public String toString() {
-	        return this.name;
-	    }
-	}
-	\end{lstlisting}
-	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
-	public class DollHouse extends Toy {
-	    
-	    public DollHouse(String name) {
-	        super(name);
-	    }
 	}
 	\end{lstlisting}
 \end{frame}
-
-\begin{frame}[fragile]{Example - Test}
-	Only instances of \emph{Toy} or instances of subclasses are allowed in a \emph{Present}.
-	Putting a \emph{Book} in a \emph{Present} will cause an error at compile-time.
-	\begin{lstlisting}
-	public static void main (String[] args) {
-	    
-	    Present<DollHouse> present1 = 
-	        new Present<DollHouse>(new DollHouse("")); 
-	    Present<Toy> present2 = 
-	        new Present<Toy>(new Toy("car"));
-	    
-	    present1.print();
-	    present2.print();
-	}
-	\end{lstlisting}
-\end{frame}
-
-%% multiple bounds with one class and many interfaces
-\begin{frame}[fragile]{Multiple Bound Restriction}
-	Let \emph{Playable} and \emph{Giftable} be interfaces and let \emph{Toy} be a class. \\
-	T can be substituted with either Toy and its subclasses 
-	or with the interfaces \emph{Playable}, \emph{Giftable}, their subinterfaces
-	and their implementations as type argument. \\
-	Multiple interfaces but \textbf{at most one class} are allowed.
-	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
-	public class Present<T extends Toy & Playable & Giftable> {
-	    
-	    private T present;
-	    
-	    public Present(T present) {
-	        this.present = present;
-	    }
-	}
-	\end{lstlisting}	
-\end{frame}
-
-%TODO methods
-
-%\subsection{Wildcards}
-%\begin{frame}[fragile]{Wildcard $<$?$>$}
-%	\begin{lstlisting}
-%	public static void main (String[] args) {
-%
-%	    Present<DollHouse> present1 = 
-%	        new Present<DollHouse>(new DollHouse("")); 
-%	    Present<Toy> present2 = 
-%	        new Present<Toy>(new Toy("car"));
-%	}
-%	\end{lstlisting}
-%   Instead of \texttt{Present<Toy>} we can use the wildcard \texttt{Present<?>}.
-%	\begin{lstlisting}
-%	public static void main (String[] args) {
-%
-%	    Present<?> present1 = 
-%	        new Present<DollHouse>(new DollHouse("")); 
-%	    Present<?> present2 = 
-%	        new Present<Toy>(new Toy("car"));
-%	}
-%	\end{lstlisting}
-%\end{frame}
-%\begin{frame}[fragile]{Wishlist}
-%	\begin{lstlisting}
-%	public static void main (String[] args) {
-%	
-%	    Present<?>[] wishlist = new Present<?>[10];
-%
-%	    wishlist[0] = 
-%	        new Present<DollHouse>(new DollHouse("")); 
-%	    wishlist[1] = 
-%	        new Present<Toy>(new Toy("car"));
-%	}
-%	\end{lstlisting}
-%\end{frame}
-%
-%\begin{frame}{Guidelines}
-%	Oracle offers guidelines for wildcard use:\\
-%	\url{https://docs.oracle.com/javase/tutorial/java/generics/wildcardGuidelines.html}
-%\end{frame}
 
 \section{Collections}
 \subsection{Overview}
@@ -344,26 +246,6 @@
 		E & \texttt{getLast()}
 		& \footnotesize{get last element}
 	\end{tabular}
-\end{frame}
-
-\begin{frame}[fragile]{Wrapper Class}
-	Primitive data types can not be elements in collections. 
-	Use wrapper classes like \emph{Integer} instead.
-	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
-	public static void main(String[] args) {
-	
-	    LinkedList<Integer> list = new LinkedList<Integer>();
-	    
-	    list.add(3); 
-	    list.addFirst(1);
-	    list.add(3);
-	    list.add(8);
-	    list.remove(3); // remove the 4th element
-	    list.add(7);
-	    
-	    System.out.println(list); // prints: [1, 3, 3, 7]
-	}
-	\end{lstlisting}
 \end{frame}
 
 \subsection{Iterating}
@@ -509,6 +391,25 @@
 	        put(44, "Fraunhofer IWU");
 	}
 	\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Overview}
+	\begin{center}
+		\begin{tabular}{ l | l }
+			List & Keeps order of objects \\
+				 & Easily traversible \\
+				 & Search not effective \\
+			\hline
+			Set  & No duplicates \\
+				 & No order - still traversible \\
+				 & Effective searching \\
+			\hline
+			Map  & Key-Value storage \\
+				 & "Search" super-effective \\
+				 & Traversing difficult
+			
+		\end{tabular}
+	\end{center}
 \end{frame}
 
 \end{document}

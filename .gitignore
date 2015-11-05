@@ -10,3 +10,6 @@
 *.snm
 *.toc
 *.vrb
+
+# pdf-folder created by build.sh
+pdf/

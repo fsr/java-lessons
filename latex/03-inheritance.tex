@@ -2,7 +2,7 @@
 
 \title{Java}
 \subtitle{Inheritance}
-\author{FSR Informatik}
+\author{Nico Westerbeck}
 \date{\today}
 
 \begin{document}
@@ -14,8 +14,42 @@
 \tableofcontents
 \end{frame}
 
-\section{Array}
-\subsection{Unidimensional Array}
+\section{Last session}
+
+\subsection{Visibilities}
+
+\begin{frame}[fragile]{Visibilities}
+	\begin{itemize}
+		\item public
+		\item private
+		\item protected
+	\end{itemize}
+\end{frame}
+	
+\begin{frame}[fragile]{Visibilities}
+
+	\begin{lstlisting}
+	
+		public class Student {
+			public String getName() {
+				return "Peter";
+			}
+			
+			private String getFavouritePorn() {
+				return "...";
+			}
+		}
+	
+		// [...]
+		exampleStudent.getName(); // Works!
+		exampleStudent.getFavouritePorn(); // Error
+	
+	\end{lstlisting}
+	
+\end{frame}
+
+
+\subsection{Arrays}
 \begin{frame}[fragile]{Array}
 	An array is a data-type that can hold a \textbf{fixed number} of elements. 
 	An Element can be any simple data-type or object.
@@ -94,17 +128,56 @@
 	\end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]{Arrays with objects}
+	Loops are often used to assign elements in arrays.
+	\begin{lstlisting}
+	public static void main(String[] args) {
+
+	    int[][] studentArray = new Student[10][10];
+	    
+	    for(int i = 0; i < 10; i++) {
+	        for(int j = 0; j < 10; j++) {
+	            intArray[i][j] = new Student();
+	        }
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Philosophic stuff}
+\begin{frame}{Mind-tools}
+	\begin{center}
+		\uncover<1-2>{\huge Think in objects!\\}
+		\uncover<2-2>{\huge Think in code!}
+		
+		% Give some more examples for thinking in object
+		% Combine the two with next frame, create class diagramm on whiteboard
+	\end{center}
+\end{frame}
+
+\begin{frame}{Combined thinking}
+	\begin{center}
+		\includegraphics[width=11cm]{res/cd-player.jpg}
+	\end{center}
+\end{frame}
+
+
 \section{Inheritance}
 \subsection{Inheritance}
-\begin{frame}{Inheritance}
-	Objects in real world have a relationship to each other.
-	In software we have to modell them if necessary. \\
-	\vfill
-	Java has a concept for one of those relationships: \textbf{Inheritance}.
-	\vfill
-	Inheritance is a modell of the \emph{is a kind of} - relation.
-	Using this we can structure our classes.
+\begin{frame}{}
+	\begin{center}
+		\includegraphics[width=9.5cm]{res/bmw-series.jpg}
+	\end{center}
 \end{frame}
+
+\begin{frame}{A special Delivery}
+	\begin{center}
+		\includegraphics[width=11cm]{res/letterandpackage.jpg}
+	\end{center}
+\end{frame}
+
+
+
 
 \begin{frame}[fragile]{A special Delivery}
 	Our class \emph{Letter} is a kind of \emph{Delivery} denoted by the keyword \textbf{extends}.
@@ -128,8 +201,16 @@
 	\begin{lstlisting}
 	public class Delivery {
 	
-	    public String address;
-	    public String sender;
+	    private String address;
+	    private String sender;
+	    
+	    public void setAddress(String addr) {
+			address = addr;
+	    }
+	    
+	    public void setSender(String snd) {
+			sender = snd;
+	    }
 	    
 	    public void printAddress() {
 	        System.out.println(this.address);
@@ -144,24 +225,6 @@
 	\end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Inherited Attributes}
-	The class \emph{Letter} inherits all attributes from the superclass \emph{Delivery}.
-	\begin{lstlisting}
-	public class PostOffice {
-	
-	    public static void main(String[] args) {
-	    
-	        Letter letter = new Letter();
-	        
-	        letter.address = "cafe ascii, Dresden";
-	        
-	        System.out.println(letter.address);
-	        // prints: cafe ascii, Dresden
-	    }	
-	}
-	\end{lstlisting}
-\end{frame}
-
 \begin{frame}[fragile]{Inherited Methods}
 	The class \emph{Letter} also inherits all methods from the superclass \emph{Delivery}.
 	\begin{lstlisting}
@@ -171,7 +234,7 @@
 	    
 	        Letter letter = new Letter();
 	        
-	        letter.address = "cafe ascii, Dresden";
+	        letter.setAddress("cafe ascii, Dresden");
 	        
 	        letter.printAddress();
 	        // prints: cafe ascii, Dresden
@@ -207,7 +270,7 @@
 	    
 	        Letter letter = new Letter();
 	        
-	        letter.address = "cafe ascii, Dresden";
+	        letter.setAddress("cafe ascii, Dresden");
 	        
 	        letter.printAddress();
 	        // prints: a letter for cafe ascii, Dresden
@@ -223,8 +286,8 @@
 	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
 	public class Delivery {
 	
-	    public String address;
-	    public String sender;
+	    private String address;
+	    private String sender;
 	    
 	    public Delivery(String address, String sender) {
 	        this.address = address;
@@ -232,7 +295,7 @@
 	    }
 	    	    
 	    public void printAddress() {
-	        System.out.println(this.address);
+	        System.out.println(address);
 	    }
 	}
 	\end{lstlisting}
@@ -330,6 +393,17 @@
 	}
 	\end{lstlisting}
 \end{frame}
+
+\begin{frame}{Images stolen at:}
+	\tiny
+	\begin{itemize}
+		\item \textbf{BMW Series} Taken from bmwblog.com
+		\item \textbf{CD-Player} Taken from wikimedia.com, Uploaded by Ukexpat
+	\end{itemize}
+	
+\end{frame}
+
+
 
 %\section{Visability}
 %\subsection{}

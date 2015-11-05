@@ -1,0 +1,438 @@
+\input{res/slide_header.tex}
+\usepackage{tikz}
+
+\title{Java}
+\subtitle{Introduction}
+\author{FSR Informatik}
+\date{\today}
+
+\tikzset{
+  every overlay node/.style={
+    draw=black,fill=white,rounded corners,anchor=north west,
+  },
+}
+% Usage:
+% \tikzoverlay at (-1cm,-5cm) {content};
+% or
+% \tikzoverlay[text width=5cm] at (-1cm,-5cm) {content};
+\def\tikzoverlay{%
+   \tikz[baseline,overlay]\node[every overlay node]
+}%
+
+\begin{document}
+
+\section{Organisation}
+\begin{frame}
+	\titlepage
+\end{frame}
+\begin{frame}{Overview}
+	\tableofcontents
+\end{frame}
+
+\subsection{Proceeding}
+\begin{frame}{About this course}
+% 	Language?\\
+	Requirements
+	\begin{itemize}
+		\item You know how to use a computer
+		\item Maybe already knowledge in programming languages?
+% 		\item Java is not your first programming language or you are a fast learner
+	\end{itemize}
+	Proceeding
+	\begin{itemize}
+		\item There will be 9 lessons
+		\item Each covers a topic and comes with excercises
+	\end{itemize}
+\end{frame}
+
+\subsection{Resources}
+\begin{frame}{Some resources}
+	\begin{itemize}
+		\item You can ask your tutor
+		\item Join the Auditorium group \hfill \\
+			\url{http://auditorium.inf.tu-dresden.de}
+		\item StackOverflow, FAQs, Online-tutorials, ... \hfill \\
+		\item Official documentation \hfill \\
+			\url{http://docs.oracle.com/javase/tutorial/java/nutsandbolts/index.html}
+	\end{itemize}
+\end{frame}
+
+\section{About Java}
+\subsection{General information}
+\begin{frame}{Some data about Java}
+	\tikzoverlay at (5.7cm,1.7cm) {
+		\includegraphics[width=5cm, height=3cm]{res/java-island.jpg}
+	};
+	\begin{itemize}
+		\item Volcanic island
+		\item Part of Indonesia
+		\item \textbf{Population:} 143 Million
+		\item[] $->$ 57\% of indonesian population
+		\item \textbf{Area:} 138,794 $km^2$
+		\item[] $->$ 13th largest island of the world
+	\end{itemize}
+	
+	
+\end{frame}
+
+\begin{frame}{... the other Java}
+	\tikzoverlay at (5.7cm,1.7cm) {
+		\includegraphics[width=5cm, height=3cm]{res/logo-java.jpg}
+	};
+	Pros:
+	\begin{itemize}
+		\item Syntax like C++
+		\item Strongly encourages OOP
+		\item Platform-independent (JVM)
+		\item Very few external libraries
+		\item[] $->$ Easy to use and very little to worry about
+	\end{itemize}	
+\end{frame}
+
+\begin{frame}{... the other Java}
+	\tikzoverlay at (5.7cm,1.7cm) {
+		\includegraphics[width=5cm, height=3cm]{res/logo-java.jpg}
+	};
+	Cons:
+	\begin{itemize}
+		\item A lot of unnecessary features \\ in the JDK
+		\item Slower than assembly
+		\item No multi-inheritance
+		\item Weak generics
+		\item Mediocre support for other programming paradigms
+		\item[] $->$ Neither fast, small nor geeky
+	\end{itemize}	
+\end{frame}
+% 
+% \section{Your first program}
+% \subsection{Setting up Eclipse}
+% 
+% \begin{frame}{Receive a copy of Eclipse}
+% 	Eclipse is a powerful IDE\footnote{Integrated Development Environment}, e.g. for Java.
+% 	\begin{itemize}
+% 		\item You can download a Windows version at \\
+% 			\url{http://www.eclipse.org}
+% 		\item Use the package-manager of your Linux distribution
+% 	\end{itemize}
+% 	Eclipse is free and open-source.
+% \end{frame}
+% 
+% \begin{frame}{Create a new project}
+% 	\begin{enumerate}
+% 		\item \menu[,]{File, New, Java Project}
+% 		\item Name your project \dots
+% 		\item \dots and press the \keys{Finish} button
+% 	\end{enumerate}
+% \end{frame}
+% 
+% \begin{frame}{Example project \emph{Hello}}
+% 	\includegraphics[width=25em]{res/intro_eclipse.png}
+% \end{frame}
+% 
+% \begin{frame}{Creating a class}
+% 	On the left side is the \emph{Package Explorer}. \\
+% 	It contains a list of all your projects. \\
+% 	The center frame ist the actual editor. \\
+% 	The \emph{Console} and error log for \emph{Problems} is located at the bottom.
+% 	\begin{enumerate}
+% 		\item Right click at your project in the Package Explorer \hfill \\
+% 			\menu[,]{New, Class}
+% 		\item Name your class \\
+% 			\emph{Class names always start with a capital letter!}
+% 		\item Press the \keys{Finish} button
+% 	\end{enumerate}
+% \end{frame}
+% 
+% \subsection{Hello World!}
+% 
+% \begin{frame}[fragile]{Hello World!}
+% 	This is an empty class after generating:
+% 	\begin{lstlisting}
+% 	public class Hello {
+% 	
+% 	}
+% 	\end{lstlisting}
+% \end{frame}
+% 
+% \begin{frame}[fragile]{Hello World!}
+% 	This is a small program printing \emph{Hello World!} to the console:
+% 	\begin{lstlisting}
+% 	public class Hello {
+% 	    public static void main(String[] args) {
+% 	        System.out.println("Hello World!");
+% 	    }
+% 	}
+% 	\end{lstlisting}
+% \end{frame}
+% 
+% \begin{frame}[fragile]{Hello World!}
+% 	\begin{lstlisting}
+% 	public class Hello {
+% 	    public static void main(String[] args) {
+% 	        System.out.println("Hello World!");
+% 	    }
+% 	}
+% 	\end{lstlisting}
+% 	Run the program by clicking the green run button: \\
+% 	\includegraphics[width=10em]{res/intro_run.png} \\
+% 	Or press \keys{\ctrl + F11}
+% \end{frame}
+% 
+% \begin{frame}[fragile]{Comments}
+% 	\begin{lstlisting}
+% 	public class Hello {
+% 	    // prints a "Hello World!" on your console
+% 	    public static void main(String[] args) {
+% 	        System.out.println("Hello World!");
+% 	    }
+% 	}
+% 	\end{lstlisting}
+% 	You should always comment your code. \\
+% 	Code is read more often than it is written.
+% 	\begin{itemize}
+% 		\item // single line comment
+% 		\item /* comment spanning \\
+% 			multiple lines */
+% 	\end{itemize}
+% \end{frame}
+
+\section{Basics}
+
+\subsection{Some definitions}
+
+\begin{frame}[fragile]{Code concepts}
+	\begin{lstlisting}
+	public class Hello {
+	    // Calculates some stuff and outputs everything on the console
+	    public static void main(String[] args) {	        
+	        int x;
+	        x = 9;
+	        int y = 23;
+	        int z;
+	        z = x * y;
+	        
+	        System.out.println(z);
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Code concepts}
+	\begin{lstlisting}
+	public class Hello {
+	    // Calculates some stuff and outputs everything on the console
+	    public static void main(String[] args) {	        
+	        System.out.println(9 * 23);
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Primitive data types}
+	Java supports some primitive data types:
+	\begin{itemize}
+		\item[boolean] a truth value (either \textbf{true} or \textbf{false})
+		\item[int] a 32 bit integer
+		\item[long] a 64 bit integer
+		\item[float] a 32 bit floating point number
+		\item[double] a 64 bit floating point number
+		\item[char] an ascii character
+		\item[void] the empty type (needed in later topics)
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{About the Semicolon}
+	\begin{lstlisting}
+	public class Hello {
+	    // prints a "Hello World!" on your console
+	    public static void main(String[] args) {
+	        System.out.println("Hello World!")@\textcolor{red}{\texttt{;}}@
+	    }
+	}
+	\end{lstlisting}
+	Semicolons conclude all statements. \\
+	Blocks do not need a semicolon.
+\end{frame}
+
+\begin{frame}[fragile]{Blocks}
+	\begin{lstlisting}
+	public class Hello @\textcolor{red}{\texttt{\{}}@
+	    // prints a "Hello World!" on your console
+	    public static void main(String[] args) {
+	        System.out.println("Hello World!");
+	    }
+	@\textcolor{red}{\texttt{\}}}@
+	\end{lstlisting}
+	Everything between \{ and \} is a \emph{block}. \\
+	Blocks may be nested.
+\end{frame}
+
+\begin{frame}[fragile]{Naming of Variables}
+	\begin{itemize}
+		\item The names of variables can begin with any letter or underscore. \\
+		Usually the name starts with small letter.
+		\item Compound names should use CamelCase.
+		\item Use meaningful names.
+	\end{itemize}
+	\begin{lstlisting}
+	public class Calc {
+	    public static void main(String[] args) {
+	    	int a = 0; // not very meaningful
+	    	float myFloat = 5.3f; // also not meaningfull
+	    	int count = 7; // quite a good name
+	    	
+	    	int rotationCount = 7; // there you go
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\subsection{Calculating}
+
+\begin{frame}[fragile, allowframebreaks]{Calculating with \emph{int}}
+% 	\begin{lstlisting}
+% 	public class Calc {
+% 	    public static void main(String[] args) {
+% 	        int a; // declare variable a
+% 	        a = 7; // assign 7 to variable a
+% 	        System.out.println(a); // prints: 7
+% 	        a = 8;
+% 	        System.out.println(a); // prints: 8
+% 	        a = a + 2;
+% 	        System.out.println(a); // prints: 10
+% 	    }
+% 	}
+% 	\end{lstlisting}
+% 	After the first assignment the variable is initialized.
+% \framebreak
+% 	\begin{lstlisting}
+% 	public class Calc {
+% 	    public static void main(String[] args) {
+% 	        int a = -9; // declaration and assignment of a
+% 	        int b; // declaration of b
+% 	        b = a; // assignment of b
+% 	        System.out.println(a); // prints: -9
+% 	        System.out.println(b); // prints: -9
+% 	        a++; // increments a
+% 	        System.out.println(a); // prints: -8
+% 	    }
+% 	}
+% 	\end{lstlisting}
+% \framebreak
+% 	\begin{lstlisting}
+% 	public class Calc {
+% 	    public static void main(String[] args) {
+% 	        int b; // declaration of b
+% 	        System.out.println(b);
+% 	    }
+% 	}
+% 	\end{lstlisting}
+% 	Uninitialized variables will cause an Exception. \\
+% 	An Exception is a kind of error we will discuss later.\\
+% 	\vspace{1em}
+% 	\emph{Always assign your variables!}
+% \framebreak
+
+	Some basic mathematical operations:
+	\begin{tabular}{ll}
+		Addition & \texttt{a + b;} \\
+		Subtraction & \texttt{a - b;} \\
+		Multiplication &\texttt{a * b;} \\
+		Division & \texttt{a / b;} \\
+		Modulo & \texttt{a \% b;} \\
+		Increment & \texttt{a++;} \\
+		Decrement & \texttt{a--;} \\
+	\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile, allowframebreaks]{Calculating with \emph{float}}
+	\begin{lstlisting}
+	public class Calc {
+	    public static void main(String[] args) {
+	        float a = 9;
+	        float b = 7.5f;
+	        System.out.println(a); // prints: 9.0
+	        System.out.println(b); // prints: 7.5
+	        System.out.println(a + b); // prints: 16.5
+	    }
+	}
+	\end{lstlisting}
+\framebreak
+	\begin{lstlisting}
+	public class Calc {
+	    public static void main(String[] args) {
+	        float a =       8.9f;
+	        float b = 3054062.5f;
+	        System.out.println(a); // prints: 8.9
+	        System.out.println(b); // prints: 3054062.5
+	        System.out.println(a + b); // prints: 3054071.5
+	    }
+	}
+	\end{lstlisting}
+	Float has a limited precision. \\
+	\emph{This might lead to unexpected results!}
+\end{frame}
+
+\begin{frame}[fragile]{Mixing \emph{int} and \emph{float}}
+	\begin{lstlisting}
+	public class Calc {
+	    public static void main(String[] args) {
+	        float a = 9.3f;
+	        int b = 3;
+	        System.out.println(a + b); // prints: 12.3
+	        float c = a + b;
+	        System.out.println(c); // prints: 12.3
+	    }
+	}
+	\end{lstlisting}
+	Java converts from \textbf{int} to \textbf{float} by default, if necessary. \\
+	But not vice versa.
+\end{frame}
+
+\subsection{Text with Strings}
+
+\begin{frame}[fragile]{Strings}
+	A String is not a primitive data type but an object. \\
+	We discuss objects in detail in the next section.
+	\begin{lstlisting}
+	public class Calc {
+	    public static void main(String[] args) {
+	        String hello = "Hello World!";
+	        System.out.println(hello); // print: Hello World!
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Concatenation}
+	\begin{lstlisting}
+	public class Calc {
+	    public static void main(String[] args) {
+	        String hello = "Hello";
+	        String world = " World!";
+	        String sentence = hello + world;
+	        System.out.println(sentence);
+	        System.out.println(hello + " World!");
+	    }
+	}
+	\end{lstlisting}
+	You can concatenate Strings using the +. Both printed lines look the same.
+\end{frame}
+
+\begin{frame}[fragile]{Strings and Numbers}
+	\begin{lstlisting}
+	public class Calc {
+	    public static void main(String[] args) {
+	    	int factorA = 3;
+	    	int factorB = 7;
+	    	int product = factorA * factorB;
+	    	String answer = 
+	            factorA + " * " + factorB + " = " + product;
+	        System.out.println(answer); // prints: 3 * 7 = 21
+	    }
+	}
+	\end{lstlisting}
+	Upon concatenation, primitive types will be replaced by their current value as \emph{String}.
+\end{frame}
+
+\end{document}
