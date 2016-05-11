@@ -5,10 +5,13 @@ import de.tu.dresden.ifsr.kurs.java.roguelike.view.GameWindow;
 public class Main {
 
     public static void main(String[] args) {
-        GameWindow game = GameWindow.getInsatnce();
+        try {
+            GameWindow game = GameWindow.getInstance();
+            while (game.isActive()) Thread.sleep(100);
 
-        while (game.isActive());
-
-        System.out.println("game closed");
+            System.out.println("game closed");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
