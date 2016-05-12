@@ -7,7 +7,10 @@ public class Main {
     public static void main(String[] args) {
         try {
             GameWindow game = GameWindow.getInstance();
-            while (game.isActive()) Thread.sleep(100);
+            while (game.isActive()) {
+                Thread.sleep(1000);
+                game.setText();
+            }
 
             System.out.println("game closed");
         } catch (Exception e) {

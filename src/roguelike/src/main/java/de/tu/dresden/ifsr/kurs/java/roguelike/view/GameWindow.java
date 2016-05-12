@@ -3,7 +3,6 @@ package de.tu.dresden.ifsr.kurs.java.roguelike.view;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -14,13 +13,19 @@ import java.util.concurrent.CountDownLatch;
 public final class GameWindow extends Application {
 
     //! Configurations
+    public static final int DIM_X = 65;
+    public static final int DIM_Y = 23;
+
     private static final String TITLE = "The awesome rogue-like-game";
-    private static final int WIDTH = 400;
-    private static final int HEIGHT = 300;
+    private static final int WIDTH = 600;
+    private static final int HEIGHT = 440;
+    private static final float FONT_SIZE = 15.1f;
+    private static final int MAX_CHAR_COUNT = DIM_X * DIM_Y;
 
     //! Threading
     private static final CountDownLatch semaphor = new CountDownLatch(1);
     private volatile static boolean active;
+    private volatile static Stage stage;
 
     private static class InstanceHolder {
         public static GameWindow INSTANCE = null;
@@ -55,8 +60,20 @@ public final class GameWindow extends Application {
         return active;
     }
 
+    public void setText() {
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < DIM_X; i++)
+            for (int j = 0; j < DIM_Y; j++)
+                output.append('#');
+
+        //gameWindow.setText(output.substring(0, MAX_CHAR_COUNT));
+        System.out.println(stage.isFocused());
+    }
+
     @Override
     public void start(Stage primaryStage) {
+        stage = primaryStage;
+
         primaryStage.setTitle(TITLE);
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest((WindowEvent event) -> active = false);
@@ -64,11 +81,12 @@ public final class GameWindow extends Application {
         final TextArea gameWindow = new TextArea();
         gameWindow.getStylesheets()
                 .add(getClass().getResource("/gamestyle.css").toExternalForm());
+        gameWindow.setStyle("-fx-font-size: " + FONT_SIZE);
         gameWindow.setWrapText(true);
         gameWindow.setEditable(false);
 
-        gameWindow.setOnKeyPressed((KeyEvent key) -> gameWindow.setText(key.getText()));
-        gameWindow.setOnKeyReleased((KeyEvent key) -> gameWindow.setText(""));
+        //gameWindow.setOnKeyPressed((KeyEvent key) -> gameWindow.setText(key.getText()));
+        //gameWindow.setOnKeyReleased((KeyEvent key) -> gameWindow.setText(""));
 
         StackPane root = new StackPane();
         root.getChildren().add(gameWindow);
