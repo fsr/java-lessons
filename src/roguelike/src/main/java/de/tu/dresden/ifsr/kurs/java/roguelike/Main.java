@@ -1,20 +1,19 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike;
 
-import de.tu.dresden.ifsr.kurs.java.roguelike.view.GameWindow;
+import de.tu.dresden.ifsr.kurs.java.roguelike.controller.GameController;
+import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
+import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Enemy;
+import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Player;
 
 public class Main {
 
     public static void main(String[] args) {
-        try {
-            GameWindow game = GameWindow.getInstance();
-            game.setText("The awesome rogue-like-game");
+        GameController game = new GameController();
+        game.addObjectToWorld(new Player("Siegfried", Gender.MAN));
+        game.addObjectToWorld(new Enemy("Wölfchen", Gender.MAN));
 
-            while (game.isActive()) {
-            }
+        game.run();
 
-            System.out.println("game closed");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.println("game closed");
     }
 }
