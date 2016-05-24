@@ -1,11 +1,15 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -21,11 +25,13 @@ public final class GameWindow extends Application {
     private static final int HEIGHT = 440;
     private static final float FONT_SIZE = 15.1f;
     private static final int MAX_CHAR_COUNT = DIM_X * DIM_Y;
+    public static final int REFRESH_TIME_MS = 100;
 
     //! Threading
     private static final CountDownLatch semaphor = new CountDownLatch(1);
     private volatile static boolean active;
     private volatile static Stage stage;
+    private volatile String output;
 
     private static class InstanceHolder {
         public static GameWindow INSTANCE = null;
@@ -33,6 +39,8 @@ public final class GameWindow extends Application {
 
     public GameWindow() {
         InstanceHolder.INSTANCE = this;
+        output = "";
+
         semaphor.countDown();
     }
 
@@ -56,18 +64,13 @@ public final class GameWindow extends Application {
         return InstanceHolder.INSTANCE;
     }
 
-    public boolean isActive() {
+    public boolean isActive() throws InterruptedException {
+        Thread.sleep(REFRESH_TIME_MS);
         return active;
     }
 
-    public void setText() {
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < DIM_X; i++)
-            for (int j = 0; j < DIM_Y; j++)
-                output.append('#');
-
-        //gameWindow.setText(output.substring(0, MAX_CHAR_COUNT));
-        System.out.println(stage.isFocused());
+    public void setText(String text) {
+        output = text.substring(0, Math.min(text.length(), MAX_CHAR_COUNT));
     }
 
     @Override
@@ -84,6 +87,13 @@ public final class GameWindow extends Application {
         gameWindow.setStyle("-fx-font-size: " + FONT_SIZE);
         gameWindow.setWrapText(true);
         gameWindow.setEditable(false);
+        gameWindow.setText(output);
+
+        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.millis(REFRESH_TIME_MS),
+                (ActionEvent event) -> gameWindow.setText(output)));
+
+        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
+        fiveSecondsWonder.play();
 
         //gameWindow.setOnKeyPressed((KeyEvent key) -> gameWindow.setText(key.getText()));
         //gameWindow.setOnKeyReleased((KeyEvent key) -> gameWindow.setText(""));
