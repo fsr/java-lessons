@@ -33,6 +33,10 @@ public class GameController {
         }
     }
 
+    public void removeAllWorldObjects() {
+        worldObjects.clear();
+    }
+
     private void render(GameWindow gameWindow) {
         StringBuilder gameBoard = new StringBuilder();
         Point positionBuffer = null;

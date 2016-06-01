@@ -1,12 +1,13 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.model.character;
 
+import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
 
 public class Enemy extends Character {
 
     private static final String charcter = "M";
 
-    public Enemy(String name, Gender gender) {
+    public Enemy(String name, Gender gender) throws CharacterException {
         super(name, gender);
 
         position.setX(10);
@@ -14,7 +15,10 @@ public class Enemy extends Character {
     }
 
     @Override
-    public void fightAgain(Character fighter) {
+    public void fightAgain(Character fighter) throws CharacterException {
+        if (fighter == null)
+            throw new CharacterException("There is no charecter to fight again.");
+
         System.out.println("Ich kämpfe gegen einen Spieler.");
     }
 
