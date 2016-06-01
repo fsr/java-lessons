@@ -1,7 +1,9 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.model.character;
 
+import de.tu.dresden.ifsr.kurs.java.roguelike.controller.InputController;
 import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
+import javafx.scene.input.KeyCode;
 
 public class Player extends Character {
 
@@ -17,6 +19,29 @@ public class Player extends Character {
 
     public boolean collect() {
         return false;
+    }
+
+    @Override
+    public void move() {
+        if (InputController.INSTANCE.keyWasPressed(KeyCode.W)) {
+            position.setY(position.getY() - 1);
+            return;
+        }
+
+        if (InputController.INSTANCE.keyWasPressed(KeyCode.S)) {
+            position.setY(position.getY() + 1);
+            return;
+        }
+
+        if (InputController.INSTANCE.keyWasPressed(KeyCode.A)) {
+            position.setX(position.getX() - 1);
+            return;
+        }
+
+        if (InputController.INSTANCE.keyWasPressed(KeyCode.D)) {
+            position.setX(position.getX() + 1);
+            return;
+        }
     }
 
     @Override

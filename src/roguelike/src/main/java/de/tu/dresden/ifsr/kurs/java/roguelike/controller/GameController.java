@@ -1,6 +1,7 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.controller;
 
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.VisibleObject;
+import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Character;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Player;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.structures.Point;
 import de.tu.dresden.ifsr.kurs.java.roguelike.view.GameWindow;
@@ -74,6 +75,15 @@ public class GameController {
     }
 
     private void process() {
+        if (InputController.INSTANCE.keyWasPressed()) {
 
+            for (VisibleObject obj : worldObjects) {
+                if (obj instanceof Character) {
+                    ((Character) obj).move();
+                }
+            }
+
+            InputController.INSTANCE.resetPressedKeys();
+        }
     }
 }
