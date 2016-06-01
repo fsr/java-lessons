@@ -1,11 +1,13 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.view;
 
+import de.tu.dresden.ifsr.kurs.java.roguelike.controller.InputController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -95,8 +97,10 @@ public final class GameWindow extends Application {
         fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
         fiveSecondsWonder.play();
 
-        //gameWindow.setOnKeyPressed((KeyEvent key) -> gameWindow.setText(key.getText()));
-        //gameWindow.setOnKeyReleased((KeyEvent key) -> gameWindow.setText(""));
+        gameWindow.setOnKeyPressed(
+                (KeyEvent key) -> InputController.INSTANCE.setKeyPressed(key));
+        gameWindow.setOnKeyReleased(
+                (KeyEvent key) -> InputController.INSTANCE.setKeyReleased(key));
 
         StackPane root = new StackPane();
         root.getChildren().add(gameWindow);
