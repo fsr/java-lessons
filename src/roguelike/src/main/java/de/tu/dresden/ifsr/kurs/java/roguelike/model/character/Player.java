@@ -13,8 +13,6 @@ public class Player extends Character {
         super(name, gender);
 
         armor = 5;
-        position.setX(5);
-        position.setY(5);
     }
 
     public boolean collect() {

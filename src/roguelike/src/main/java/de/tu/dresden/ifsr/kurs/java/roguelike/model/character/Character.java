@@ -1,5 +1,6 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.model.character;
 
+import de.tu.dresden.ifsr.kurs.java.roguelike.controller.RandomNumberController;
 import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.InvalidPointException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
@@ -29,7 +30,7 @@ public abstract class Character implements VisibleObject {
 
         this.name = name;
         this.gender = gender;
-        this.position = new Point();
+        this.position = RandomNumberController.INSTANCE.getWorldPoint();
 
         hp = 100;
         strength = 10;

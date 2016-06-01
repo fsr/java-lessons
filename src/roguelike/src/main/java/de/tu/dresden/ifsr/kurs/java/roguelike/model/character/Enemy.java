@@ -9,9 +9,6 @@ public class Enemy extends Character {
 
     public Enemy(String name, Gender gender) throws CharacterException {
         super(name, gender);
-
-        position.setX(10);
-        position.setY(7);
     }
 
     @Override

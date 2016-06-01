@@ -1,8 +1,10 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.controller;
 
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.VisibleObject;
+import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Player;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.structures.Point;
 import de.tu.dresden.ifsr.kurs.java.roguelike.view.GameWindow;
+import sun.plugin.dom.exception.InvalidStateException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,9 @@ public class GameController {
     }
 
     public void run() {
+        if (!validWorldObjects())
+            throw new InvalidStateException("There must be exactly one player.");
+
         try {
             GameWindow gameWindow = GameWindow.getInstance();
 
@@ -31,6 +36,17 @@ public class GameController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean validWorldObjects() {
+        int playerCount = 0;
+
+        for (VisibleObject obj : worldObjects) {
+            if (obj instanceof Player)
+                playerCount++;
+        }
+
+        return playerCount == 1;
     }
 
     public void removeAllWorldObjects() {

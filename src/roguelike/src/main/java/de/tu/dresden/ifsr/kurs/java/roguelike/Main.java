@@ -9,10 +9,14 @@ import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Player;
 public class Main {
 
     public static void main(String[] args) {
-        GameController game = new GameController();
+        try {
+            GameController game = new GameController();
 
-        if (initCharacters(game))
-            game.run();
+            if (initCharacters(game))
+                game.run();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println("game closed");
     }
