@@ -24,6 +24,6 @@ public enum RandomNumberController {
     }
 
     public Direction getDirection() {
-        return Direction.values()[randomizer.nextInt(4)];
+        return Direction.values()[randomizer.nextInt(5)];
     }
 }
