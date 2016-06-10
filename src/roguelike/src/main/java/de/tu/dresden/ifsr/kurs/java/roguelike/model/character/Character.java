@@ -1,8 +1,10 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.model.character;
 
+import de.tu.dresden.ifsr.kurs.java.roguelike.controller.InputController;
 import de.tu.dresden.ifsr.kurs.java.roguelike.controller.RandomNumberController;
 import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.InvalidPointException;
+import de.tu.dresden.ifsr.kurs.java.roguelike.model.Direction;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.VisibleObject;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.structures.Point;
@@ -40,34 +42,11 @@ public abstract class Character implements VisibleObject {
     public abstract void fightAgain(Character fighter) throws CharacterException;
 
     @Override
-    public void move() {
-        /*
+    public Direction move() {
         if (!InputController.INSTANCE.keyWasPressed())
-            return;
+            return Direction.NONE;
 
-        Direction directionToMove = RandomNumberController.INSTANCE
-                .getDirection();
-
-        if (directionToMove == Direction.UP) {
-            position.setY(position.getY() - 1);
-            return;
-        }
-
-        if (directionToMove == Direction.DOWN) {
-            position.setY(position.getY() + 1);
-            return;
-        }
-
-        if (directionToMove == Direction.LEFT) {
-            position.setX(position.getX() - 1);
-            return;
-        }
-
-        if (directionToMove == Direction.RIGHT) {
-            position.setX(position.getX() + 1);
-            return;
-        }
-        */
+        return Direction.NONE;//RandomNumberController.INSTANCE.getDirection();
     }
 
     public String getName() {
@@ -92,6 +71,6 @@ public abstract class Character implements VisibleObject {
         if (position == null)
             throw new InvalidPointException("The position to set this charcter is invalid.");
 
-        this.position = position;
+        this.position.setPosition(position);
     }
 }

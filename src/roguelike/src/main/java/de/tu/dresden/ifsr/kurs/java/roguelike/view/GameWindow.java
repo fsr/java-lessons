@@ -4,6 +4,7 @@ import de.tu.dresden.ifsr.kurs.java.roguelike.controller.InputController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
@@ -76,7 +77,19 @@ public final class GameWindow extends Application {
     }
 
     @Override
+    public void stop() {
+        try {
+            super.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Platform.exit();
+        }
+    }
+
+    @Override
     public void start(Stage primaryStage) {
+
         stage = primaryStage;
 
         primaryStage.setTitle(TITLE);

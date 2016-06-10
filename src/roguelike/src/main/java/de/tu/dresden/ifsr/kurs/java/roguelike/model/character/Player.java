@@ -2,6 +2,7 @@ package de.tu.dresden.ifsr.kurs.java.roguelike.model.character;
 
 import de.tu.dresden.ifsr.kurs.java.roguelike.controller.InputController;
 import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
+import de.tu.dresden.ifsr.kurs.java.roguelike.model.Direction;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
 import javafx.scene.input.KeyCode;
 
@@ -10,11 +11,13 @@ public class Player extends Character {
     private static final String charcter = "\u263A";
 
     private int armor;
+    private boolean hasMoved;
 
     public Player(String name, Gender gender) throws CharacterException {
         super(name, gender);
 
         armor = 5;
+        hasMoved = false;
     }
 
     public boolean collect() {
@@ -22,26 +25,28 @@ public class Player extends Character {
     }
 
     @Override
-    public void move() {
+    public Direction move() {
+        Direction result = Direction.NONE;
+
         if (InputController.INSTANCE.keyWasPressed(KeyCode.W)) {
-            position.setY(position.getY() - 1);
-            return;
+            result = Direction.UP;
         }
 
         if (InputController.INSTANCE.keyWasPressed(KeyCode.S)) {
-            position.setY(position.getY() + 1);
-            return;
+            result = Direction.DOWN;
         }
 
         if (InputController.INSTANCE.keyWasPressed(KeyCode.A)) {
-            position.setX(position.getX() - 1);
-            return;
+            result = Direction.LEFT;
         }
 
         if (InputController.INSTANCE.keyWasPressed(KeyCode.D)) {
-            position.setX(position.getX() + 1);
-            return;
+            result = Direction.RIGHT;
         }
+
+        InputController.INSTANCE.resetPressedKeys();
+
+        return result;
     }
 
     @Override
