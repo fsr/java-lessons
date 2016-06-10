@@ -1,10 +1,8 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.model.character;
 
-import de.tu.dresden.ifsr.kurs.java.roguelike.controller.InputController;
 import de.tu.dresden.ifsr.kurs.java.roguelike.controller.RandomNumberController;
 import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.InvalidPointException;
-import de.tu.dresden.ifsr.kurs.java.roguelike.model.Direction;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.VisibleObject;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.structures.Point;
@@ -41,7 +39,9 @@ public abstract class Character implements VisibleObject {
 
     public abstract void fightAgain(Character fighter) throws CharacterException;
 
+    @Override
     public void move() {
+        /*
         if (!InputController.INSTANCE.keyWasPressed())
             return;
 
@@ -67,6 +67,7 @@ public abstract class Character implements VisibleObject {
             position.setX(position.getX() + 1);
             return;
         }
+        */
     }
 
     public String getName() {

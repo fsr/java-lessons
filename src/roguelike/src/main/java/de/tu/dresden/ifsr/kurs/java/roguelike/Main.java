@@ -5,12 +5,13 @@ import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Enemy;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Player;
+import de.tu.dresden.ifsr.kurs.java.roguelike.view.GameWindow;
 
 public class Main {
 
     public static void main(String[] args) {
         try {
-            GameController game = new GameController();
+            GameController game = new GameController(GameWindow.DIM_X, GameWindow.DIM_Y);
 
             if (initCharacters(game))
                 game.run();
@@ -25,8 +26,10 @@ public class Main {
         System.out.println("Start character-creation.");
 
         try {
-            game.addObjectToWorld(new Player("Siegfried", Gender.MAN));
+            game.addPlayer(new Player("Siegfried", Gender.MAN));
+
             game.addObjectToWorld(new Enemy("Wölfchen", Gender.MAN));
+            game.addObjectToWorld(new Enemy("Spinnchen", Gender.WOMAN));
 
             return true;
         } catch (CharacterException ex) {
