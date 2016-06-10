@@ -1,6 +1,5 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.model.character;
 
-import de.tu.dresden.ifsr.kurs.java.roguelike.controller.InputController;
 import de.tu.dresden.ifsr.kurs.java.roguelike.controller.RandomNumberController;
 import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.InvalidPointException;
@@ -43,10 +42,7 @@ public abstract class Character implements VisibleObject {
 
     @Override
     public Direction move() {
-        if (!InputController.INSTANCE.keyWasPressed())
-            return Direction.NONE;
-
-        return Direction.NONE;//RandomNumberController.INSTANCE.getDirection();
+        return RandomNumberController.INSTANCE.getDirection();
     }
 
     public String getName() {
