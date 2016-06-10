@@ -1,5 +1,6 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.controller;
 
+import de.tu.dresden.ifsr.kurs.java.roguelike.model.Direction;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.VisibleObject;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Player;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.structures.Point;
@@ -64,6 +65,10 @@ public class GameController {
         }
     }
 
+    public void close() {
+        GameWindow.getInstance().stop();
+    }
+
     public void removeAllWorldObjects() {
         for (List<VisibleObject> field : worldObjects.values()) {
             field.clear();
@@ -76,10 +81,14 @@ public class GameController {
         for (Point field : worldObjects.keySet()) {
             List<VisibleObject> objects = worldObjects.get(field);
 
-            if (objects.isEmpty()) {
+            if (objects == null || objects.isEmpty()) {
                 gameBoard.append("\u00A0");
             } else {
-                gameBoard.append(objects.get(0).getVisibleCharacter());
+                if (objects.contains(player)) {
+                    gameBoard.append(player.getVisibleCharacter());
+                } else {
+                    gameBoard.append(objects.get(0).getVisibleCharacter());
+                }
             }
         }
 
@@ -88,13 +97,50 @@ public class GameController {
 
     private void process() {
         if (InputController.INSTANCE.keyWasPressed()) {
-            for (List<VisibleObject> field : worldObjects.values()) {
-                for (VisibleObject obj : field) {
-                    obj.move();
+            Point currentPosition = new Point();
+            List<VisibleObject> objectsToMove = new ArrayList<VisibleObject>();
+
+            for (Point field : worldObjects.keySet()) {
+                for (VisibleObject obj : worldObjects.get(field)) {
+                    Direction direction = obj.move();
+                    currentPosition.setPosition(field);
+
+                    switch (direction) {
+                        case DOWN:
+                            currentPosition.setY(currentPosition.getY() + 1);
+                            break;
+                        case UP:
+                            currentPosition.setY(currentPosition.getY() - 1);
+                            break;
+                        case RIGHT:
+                            currentPosition.setX(currentPosition.getX() + 1);
+                            break;
+                        case LEFT:
+                            currentPosition.setX(currentPosition.getX() - 1);
+                            break;
+                        case NONE:
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if (worldObjects.containsKey(currentPosition)) {
+                        obj.setPosition(currentPosition);
+                        objectsToMove.add(obj);
+                    }
+                }
+
+                if (!objectsToMove.isEmpty()) {
+                    List<VisibleObject> currentObjects = worldObjects.get(field);
+
+                    for (VisibleObject obj : objectsToMove) {
+                        worldObjects.get(obj.getPosition()).add(obj);
+                        currentObjects.remove(obj);
+                    }
+
+                    objectsToMove.clear();
                 }
             }
-
-            InputController.INSTANCE.resetPressedKeys();
         }
     }
 }

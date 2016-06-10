@@ -4,17 +4,21 @@ import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.InvalidPointException;
 
 public class Point {
 
+    public static final int PRIME_BASE = 101;
+
     private int x;
     private int y;
 
     public Point() {
-        x = 0;
-        y = 0;
+        setPosition(0, 0);
     }
 
     public Point(int x, int y) {
-        setX(x);
-        setY(y);
+        setPosition(x, y);
+    }
+
+    public Point(Point point) {
+        setPosition(point);
     }
 
     public int getX() {
@@ -39,5 +43,15 @@ public class Point {
                     "A position is only possible, if y solves the condition Min.Int < y < Max.Int.");
 
         this.y = y;
+    }
+
+    public void setPosition(int x, int y) {
+        setX(x);
+        setY(y);
+    }
+
+    public void setPosition(Point point) {
+        x = point.x;
+        y = point.y;
     }
 }

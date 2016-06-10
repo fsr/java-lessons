@@ -11,5 +11,5 @@ public interface VisibleObject {
 
     public void setPosition(Point position);
 
-    public void move();
+    public Direction move();
 }

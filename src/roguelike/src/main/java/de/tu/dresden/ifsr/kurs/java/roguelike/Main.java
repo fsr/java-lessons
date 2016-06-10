@@ -10,13 +10,17 @@ import de.tu.dresden.ifsr.kurs.java.roguelike.view.GameWindow;
 public class Main {
 
     public static void main(String[] args) {
-        try {
-            GameController game = new GameController(GameWindow.DIM_X, GameWindow.DIM_Y);
+        GameController game = null;
 
+        try {
+            game = new GameController(GameWindow.DIM_X, GameWindow.DIM_Y);
             if (initCharacters(game))
                 game.run();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+
+            if (game != null)
+                game.close();
         }
 
         System.out.println("game closed");
