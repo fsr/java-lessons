@@ -10,4 +10,6 @@ public interface VisibleObject {
     public Point getPosition();
 
     public void setPosition(Point position);
+
+    public void move();
 }

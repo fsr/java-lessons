@@ -1,7 +1,6 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.controller;
 
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.VisibleObject;
-import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Character;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Player;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.structures.Point;
 import de.tu.dresden.ifsr.kurs.java.roguelike.view.GameWindow;
@@ -9,22 +8,48 @@ import sun.plugin.dom.exception.InvalidStateException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class GameController {
 
-    private List<VisibleObject> worldObjects;
+    private Map<Point, List<VisibleObject>> worldObjects;
+    private Player player;
 
-    public GameController() {
-        worldObjects = new ArrayList<VisibleObject>();
+    public GameController(int width, int height) {
+        worldObjects = initWorld(width, height);
     }
 
-    public void addObjectToWorld(VisibleObject obj) {
-        worldObjects.add(obj);
+    private Map<Point, List<VisibleObject>> initWorld(int width, int height) {
+        Map<Point, List<VisibleObject>> result = new TreeMap<Point, List<VisibleObject>>();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                result.put(new Point(x, y), new ArrayList<VisibleObject>());
+            }
+        }
+
+        return result;
+    }
+
+    public boolean addPlayer(Player player) {
+        if (this.player != null)
+            return false;
+
+        this.player = player;
+        return addObjectToWorld(player);
+    }
+
+    public boolean addObjectToWorld(VisibleObject obj) {
+        if (!worldObjects.containsKey(obj.getPosition()))
+            return false;
+
+        return worldObjects.get(obj.getPosition()).add(obj);
     }
 
     public void run() {
-        if (!validWorldObjects())
-            throw new InvalidStateException("There must be exactly one player.");
+        if (player == null)
+            throw new InvalidStateException("There must be one player.");
 
         try {
             GameWindow gameWindow = GameWindow.getInstance();
@@ -39,35 +64,22 @@ public class GameController {
         }
     }
 
-    public boolean validWorldObjects() {
-        int playerCount = 0;
-
-        for (VisibleObject obj : worldObjects) {
-            if (obj instanceof Player)
-                playerCount++;
-        }
-
-        return playerCount == 1;
-    }
-
     public void removeAllWorldObjects() {
-        worldObjects.clear();
+        for (List<VisibleObject> field : worldObjects.values()) {
+            field.clear();
+        }
     }
 
     private void render(GameWindow gameWindow) {
         StringBuilder gameBoard = new StringBuilder();
-        Point positionBuffer = null;
 
-        gameBoard.append(new String(new char[gameWindow.DIM_X * gameWindow.DIM_Y]).replace("\0", "\u00A0"));
+        for (Point field : worldObjects.keySet()) {
+            List<VisibleObject> objects = worldObjects.get(field);
 
-        for (VisibleObject worldObject : worldObjects) {
-            positionBuffer = worldObject.getPosition();
-
-            if (positionBuffer.getX() >= 0 && positionBuffer.getX() < gameWindow.DIM_X
-                    && positionBuffer.getY() >= 0 && positionBuffer.getY() < gameWindow.DIM_Y) {
-
-                gameBoard.insert((positionBuffer.getY() * gameWindow.DIM_X) + positionBuffer.getX(),
-                        worldObject.getVisibleCharacter());
+            if (objects.isEmpty()) {
+                gameBoard.append("\u00A0");
+            } else {
+                gameBoard.append(objects.get(0).getVisibleCharacter());
             }
         }
 
@@ -76,10 +88,9 @@ public class GameController {
 
     private void process() {
         if (InputController.INSTANCE.keyWasPressed()) {
-
-            for (VisibleObject obj : worldObjects) {
-                if (obj instanceof Character) {
-                    ((Character) obj).move();
+            for (List<VisibleObject> field : worldObjects.values()) {
+                for (VisibleObject obj : field) {
+                    obj.move();
                 }
             }
 
