@@ -1,7 +1,7 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike;
 
 import de.tu.dresden.ifsr.kurs.java.roguelike.controller.GameController;
-import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
+import de.tu.dresden.ifsr.kurs.java.roguelike.exceptions.CharacterException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Enemy;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Player;

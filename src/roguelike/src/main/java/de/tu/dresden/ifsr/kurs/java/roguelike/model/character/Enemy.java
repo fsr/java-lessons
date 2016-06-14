@@ -1,6 +1,6 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.model.character;
 
-import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
+import de.tu.dresden.ifsr.kurs.java.roguelike.exceptions.CharacterException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
 
 public class Enemy extends Character {
