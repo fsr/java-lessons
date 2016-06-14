@@ -1,7 +1,7 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.model.character;
 
 import de.tu.dresden.ifsr.kurs.java.roguelike.controller.InputController;
-import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
+import de.tu.dresden.ifsr.kurs.java.roguelike.exceptions.CharacterException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Direction;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
 import javafx.scene.input.KeyCode;

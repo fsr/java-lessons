@@ -1,8 +1,8 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.model.character;
 
 import de.tu.dresden.ifsr.kurs.java.roguelike.controller.RandomNumberController;
-import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.CharacterException;
-import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.InvalidPointException;
+import de.tu.dresden.ifsr.kurs.java.roguelike.exceptions.CharacterException;
+import de.tu.dresden.ifsr.kurs.java.roguelike.exceptions.InvalidPointException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Direction;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Gender;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.VisibleObject;

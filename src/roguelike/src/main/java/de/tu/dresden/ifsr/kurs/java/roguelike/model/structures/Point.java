@@ -1,8 +1,8 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.model.structures;
 
-import de.tu.dresden.ifsr.kurs.java.roguelike.excetions.InvalidPointException;
+import de.tu.dresden.ifsr.kurs.java.roguelike.exceptions.InvalidPointException;
 
-public class Point {
+public class Point /*implements Comparable<Point>*/ {
 
     public static final int PRIME_BASE = 101;
 

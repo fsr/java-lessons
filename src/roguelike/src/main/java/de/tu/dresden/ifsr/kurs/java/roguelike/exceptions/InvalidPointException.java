@@ -1,4 +1,4 @@
-package de.tu.dresden.ifsr.kurs.java.roguelike.excetions;
+package de.tu.dresden.ifsr.kurs.java.roguelike.exceptions;
 
 public class InvalidPointException extends RuntimeException {
     public InvalidPointException() {

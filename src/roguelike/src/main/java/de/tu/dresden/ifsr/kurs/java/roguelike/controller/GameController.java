@@ -5,7 +5,6 @@ import de.tu.dresden.ifsr.kurs.java.roguelike.model.VisibleObject;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Player;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.structures.Point;
 import de.tu.dresden.ifsr.kurs.java.roguelike.view.GameWindow;
-import sun.plugin.dom.exception.InvalidStateException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +49,7 @@ public class GameController {
 
     public void run() {
         if (player == null)
-            throw new InvalidStateException("There must be one player.");
+            throw new IllegalArgumentException("There must be one player.");
 
         try {
             GameWindow gameWindow = GameWindow.getInstance();
