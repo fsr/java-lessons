@@ -2,7 +2,7 @@ package de.tu.dresden.ifsr.kurs.java.roguelike.model.structures;
 
 import de.tu.dresden.ifsr.kurs.java.roguelike.exceptions.InvalidPointException;
 
-public class Point /*implements Comparable<Point>*/ {
+public class Point implements Comparable<Point> {
 
     public static final int PRIME_BASE = 101;
 
@@ -53,5 +53,23 @@ public class Point /*implements Comparable<Point>*/ {
     public void setPosition(Point point) {
         x = point.x;
         y = point.y;
+    }
+
+    @Override
+    public int compareTo(Point point) {
+        return hashCode() - point.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return (PRIME_BASE + y) * PRIME_BASE + x;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Point))
+            return false;
+
+        return hashCode() == o.hashCode();
     }
 }
