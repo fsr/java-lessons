@@ -51,8 +51,8 @@ public class Point implements Comparable<Point> {
     }
 
     public void setPosition(Point point) {
-        x = point.x;
-        y = point.y;
+        setX(point.x);
+        setY(point.y);
     }
 
     @Override
