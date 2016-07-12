@@ -2,6 +2,9 @@ package de.tu.dresden.ifsr.kurs.java.roguelike.model.structures;
 
 import de.tu.dresden.ifsr.kurs.java.roguelike.exceptions.InvalidPointException;
 
+// Schauen warum maven tests nicht ausführt
+
+
 /**
  * Representing a point in 2D.
  *
