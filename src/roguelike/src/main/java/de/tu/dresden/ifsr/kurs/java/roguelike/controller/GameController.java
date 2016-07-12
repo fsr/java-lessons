@@ -1,7 +1,9 @@
 package de.tu.dresden.ifsr.kurs.java.roguelike.controller;
 
+import de.tu.dresden.ifsr.kurs.java.roguelike.exceptions.CharacterException;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.Direction;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.VisibleObject;
+import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Character;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.character.Player;
 import de.tu.dresden.ifsr.kurs.java.roguelike.model.structures.Point;
 import de.tu.dresden.ifsr.kurs.java.roguelike.view.GameWindow;
@@ -138,6 +140,34 @@ public class GameController {
                     }
 
                     objectsToMove.clear();
+                }
+            }
+
+            takeFights();
+        }
+    }
+
+    private void takeFights() {
+        for (Point point : worldObjects.keySet()) {
+            List<VisibleObject> fieldObjects = worldObjects.get(point);
+            List<Character> charactersOnField = new ArrayList<Character>();
+
+            for (VisibleObject fieldObject : fieldObjects) {
+                if (fieldObject instanceof Character)
+                    charactersOnField.add((Character) fieldObject);
+            }
+
+            if (charactersOnField.size() >= 2) {
+                try {
+                    for (Character character : charactersOnField) {
+                        for (Character fightPartner : charactersOnField) {
+                            if (!character.equals(fightPartner)) {
+                                character.fightAgain(fightPartner);
+                            }
+                        }
+                    }
+                } catch (CharacterException e) {
+                    System.out.println(e.getMessage());
                 }
             }
         }
