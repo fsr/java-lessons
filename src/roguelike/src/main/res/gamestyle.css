@@ -1,8 +1,0 @@
-.text-area .content{
-    -fx-background-color: black;
-}
-
-.text-area{
-    -fx-text-fill: white;
-    -fx-font-family: monospace;
-}

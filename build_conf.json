@@ -1,0 +1,12 @@
+{
+    "builds": {
+        "pdf": {
+            "source_dir": "latex/slides",
+            "target_dir": "build/pdf",
+            "command": "pdflatex",
+            "files": [
+                "01_getting_started.tex"
+            ]
+        }
+    }
+}
