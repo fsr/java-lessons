@@ -1,0 +1,11 @@
+slides:
+  -
+    number: 1
+    name: Getting Started
+    url: https://ifsr.de/kurs-materialien/python/01_getting_started.pdf
+    published: True
+  -
+    number: 2
+    name: Grundlagen
+    url: https://ifsr.de/kurs-materialien/python/02_grundlagen.pdf
+    published: False

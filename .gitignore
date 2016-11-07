@@ -1,0 +1,7 @@
+_site
+.sass-cache
+.c9/
+*.log
+latex/
+rbuild/
+.jekyll-metadata

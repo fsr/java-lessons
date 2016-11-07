@@ -1,0 +1,31 @@
+# Site settings
+title: Java Lesson Exercises
+email: programmierung@ifsr.de
+description: >
+  Rendered exercise descriptions for the java lessons
+baseurl: "/java-lessons" # the subpath of your site, e.g. /blog/
+url: "http://fsr.github.io/" # the base hostname & protocol for your site
+# twitter_username: jekyllrb
+github_username: fsr
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+
+exclude:
+  - .c9/
+  - .git/
+  - latex/
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "exercises"
+    values:
+      layout: "exercise"
+
+collections:
+  exercises:
+    output: true

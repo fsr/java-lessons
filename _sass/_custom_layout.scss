@@ -1,0 +1,35 @@
+.small {
+  font-size: small;
+
+  a, pre, code {
+    font-size: small;
+  }
+}
+
+.footnotes {
+  @extend .small;
+
+  margin-top: 70px;
+  padding-top: 30px;
+  border-top: 1px solid $grey-color;
+}
+
+.alert {
+  padding: 20px;
+  background-color: rgb(5, 100, 0);
+  color: white;
+  margin-bottom: 30px;
+  position: relative;
+
+  .close {
+    right: 0.25rem;
+    background: inherit;
+    color: #333333;
+    font-size: 1.375rem;
+    line-height: .9;
+    margin-top: -0.6875rem;
+    padding: 0 12px 4px;
+    position: absolute;
+    top: 50%;
+  }
+}
