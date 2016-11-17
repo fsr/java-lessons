@@ -1,0 +1,76 @@
+\input{../templates/course_definitions}
+\input{../templates/course_information}
+
+\title{Java}
+\subtitle{Abstract}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\section{Abstract}
+\subsection{}
+\begin{frame}[fragile]{Abstract Class}
+	The keyword \textbf{abstract} denotes an abstract class.
+	\vfill
+	\begin{lstlisting}
+	public abstract class AbstractExample {
+	
+	}	
+	\end{lstlisting}
+	\vfill
+    \begin{itemize}
+	\item You can not create objects from an abstract class.\\
+	\item Abstract classes can extend other abstract classes and can implement interfaces \footnote[1]{Interfaces will be discussed later}.\\
+	\item Abstract classes can be extended by normal and abstract classes.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods}
+	An abstract class may has concrete methods and may has abstract methods.
+	\begin{lstlisting}
+	public abstract class AbstractExample {
+	
+	    public void printHello() {
+	        System.out.println("Hello");	    
+	    }
+	    
+	    public abstract String getName();
+	}	
+	\end{lstlisting}
+	An abstract method forces the class to be abstract as well. \\
+	%\emph{Methods in an interface are also abstract but not denoted as such.}
+\end{frame}
+
+\begin{frame}[fragile]{Subclasses}
+	The subclass has to implement abstract methods or has to be abstract as well.
+	All concrete methods will be regular inherited.
+	\begin{lstlisting}[escapechar=!]
+	public class Example extends AbstractExample {
+	    
+	    @Override
+	    public String getName() {
+	        return "Example";	    
+	    }
+	}	
+	\end{lstlisting}
+\end{frame}
+
+%TODO more text
+\begin{frame}{Why using Abstract?}
+	Abstract classes are used to minimize similar code in related classes.
+\end{frame}
+
+%TODO Overview
+%\begin{frame}{Abstract Class vs. Interface}
+%
+%\end{frame}
+
+%TODO Common Errors
+%\begin{frame}{Static vs. Abstract Methods}
+%	Do not mix up statitic and abstract methods.
+%\end{frame}
+\end{document}
