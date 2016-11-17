@@ -1,14 +1,14 @@
 targets:
-    - sqlite / peewee
-    - os.path / os / pathlib
-    - functools
-    - urllib.request
-    - http / cgi / ssl / hashlib
-    - descriptors
+    - introduction
+    - oop
+    - control structures
+    - inheritance
+    - interface
     - collections
-    - importlib / sys.path
-    - list/dict/generator comprehension
-    - file descriptors
-    - subprocess
-    - threading / multiprocessing
-    - decorators
+    - exceptions
+    - debugging
+    - javadoc
+    - GUI
+    - abstract
+    - testing
+    - regex
