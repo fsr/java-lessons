@@ -5,7 +5,10 @@
             "target_dir": "build/pdf",
             "command": "pdflatex",
             "files": [
-                "01_getting_started.tex"
+                "01-introduction.tex",
+                "02-oop.tex",
+                "03-inheritance.tex",
+                "04-abstract.tex"
             ]
         }
     }
