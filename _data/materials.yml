@@ -3,7 +3,7 @@ slides:
     number: 1
     name: Introduction
     url: https://ifsr.de/kurs-materialien/java/01-introduction.pdf
-    published: False
+    published: True
   -
     number: 2
     name: Object Oriented Programming
@@ -13,12 +13,12 @@ slides:
     number: 3
     name: Inheritance
     url: https://ifsr.de/kurs-materialien/java/03-inheritance.pdf
-    published: False
+    published: True
   -
     number: 4
     name: Abstract
     url: https://ifsr.de/kurs-materialien/java/04-abstract.pdf
-    published: False
+    published: True
   -
     number: 5
     name: Abstract
