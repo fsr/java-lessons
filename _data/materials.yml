@@ -21,6 +21,6 @@ slides:
     published: True
   -
     number: 5
-    name: Abstract
+    name: Interfaces
     url: https://ifsr.de/kurs-materialien/java/05-interfaces.pdf
     published: True
