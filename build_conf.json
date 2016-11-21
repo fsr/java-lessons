@@ -8,7 +8,8 @@
                 "01-introduction.tex",
                 "02-oop.tex",
                 "03-inheritance.tex",
-                "04-abstract.tex"
+                "04-abstract.tex", 
+                "05-interfaces.tex",
             ]
         }
     }
