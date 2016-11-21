@@ -9,7 +9,7 @@
                 "02-oop.tex",
                 "03-inheritance.tex",
                 "04-abstract.tex", 
-                "05-interfaces.tex",
+                "05-interfaces.tex"
             ]
         }
     }
