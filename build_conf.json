@@ -3,7 +3,7 @@
         "pdf": {
             "source_dir": "latex/slides",
             "target_dir": "build/pdf",
-            "command": "pdflatex",
+            "command": "lualatex",
             "files": [
                 "01-introduction.tex",
                 "02-oop.tex",
