@@ -2,10 +2,25 @@ slides:
   -
     number: 1
     name: Introduction
-    url: https://ifsr.de/kurs-materialien/python/01_getting_started.pdf
+    url: https://ifsr.de/kurs-materialien/java/01-introduction.pdf
     published: True
   -
     number: 2
     name: Object Oriented Programming
-    url: https://ifsr.de/kurs-materialien/python/02_grundlagen.pdf
-    published: False
+    url: https://ifsr.de/kurs-materialien/java/02-oop.pdf
+    published: True
+  -
+    number: 3
+    name: Inheritance
+    url: https://ifsr.de/kurs-materialien/java/03-inheritance.pdf
+    published: True
+  -
+    number: 4
+    name: Abstract
+    url: https://ifsr.de/kurs-materialien/java/04-abstract.pdf
+    published: True
+  -
+    number: 5
+    name: Interfaces
+    url: https://ifsr.de/kurs-materialien/java/05-interfaces.pdf
+    published: True
