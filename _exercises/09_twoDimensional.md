@@ -13,6 +13,7 @@ authors: mangerlahn, LeonardFollner
 	public double getArea();
 }
 ```
+
 ### Aufgaben
 1. Implementiere für die Klassen `Square`, `Circle` und `Rectangle` das Interface `TwoDimensional`.
 2. Schreibe Konstruktoren die geeignete Parameter, wie z.B. Radius, der Körper übernehmen.
