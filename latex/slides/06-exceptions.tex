@@ -1,0 +1,252 @@
+\input{../templates/course_definitions}
+\input{../templates/course_information}
+
+\usepackage{qtree}
+
+\title{Java}
+\subtitle{Exceptions}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Overview}
+\tableofcontents
+\end{frame}
+
+\section{Exceptions}
+\subsection{Overview}
+\begin{frame}{}
+	While running software many things can go wrong. 
+	You have to deal with errors or exceptional behavior. %AE
+	\vfill
+	Java offers exception handling out of the box.
+	Exceptions seperate error-handling from normal code.
+	\vfill
+	On this slide \emph{exception} means the Java term and \emph{error} a nonspecified general term.
+\end{frame}
+
+\begin{frame}{Hierarchy}
+	\Tree [.Object [.Throwable Error [.Exception \dots{} RuntimeException ] ] ] \\
+	\vfill
+	Every exception is a subclass of \emph{Throwable}. 
+	\emph{Error} is also a subclass of \emph{Throwable} but used for serious errors
+	like \emph{VirtualMachineError}. \\
+	
+	\scriptsize\url{https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html}
+\end{frame}
+
+\begin{frame}{Checked Exceptions}
+	Every exception except \emph{RuntimeException} and its subclasses are \textbf{checked exceptions}.
+	\vfill
+	A checked exception has to be handled or denoted.
+	\vfill
+	The cause of this kind of exception is often outside of your program.
+\end{frame}
+
+\begin{frame}{Unchecked Exceptions}
+	\emph{RuntimeException} and its subclasses are called \textbf{unchecked exceptions}.
+	\vfill
+	Unchecked Exceptions do not have to be denoted or handled, but can be.
+	Often handling is senseless because the program can not recover 
+	in case such exception occurs.
+	\vfill
+	The cause of an unchecked exception can be a method call with incorrect arguments.
+	Therefore any method could throw an unchecked exception.
+	Most unchecked exceptions are caused by the programer.
+	\vfill
+	Errors are also unchecked.
+\end{frame}
+
+\subsection{Catching Exceptions}	
+\begin{frame}[fragile]{Introduction}
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class Calc {
+	
+	    public static void main(String[] args) {
+	
+	        int a = 7 / 0;
+	        // will cause an ArithmeticException
+	        
+	        System.out.println(a);
+	    }
+	}
+	\end{lstlisting}
+	A division by zero causes an \emph{ArithmeticException} which is a subclass of \emph{RuntimeException}. 
+	Therefore \emph{ArithmeticException} is unchecked and does not have to be handled.
+\end{frame}
+
+\begin{frame}[fragile]{Try and Catch}
+	Nevertheless the exception can be handled.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class Calc {
+	
+	    public static void main(String[] args) {
+	
+	        try {
+	            int a = 7 / 0;
+	        } catch (ArithmeticException e) {
+	            System.out.println("Division by zero.");
+	        }
+	    }
+	}
+	\end{lstlisting}
+	The \textbf{catch}-block, also called exception handler,
+	is invoked if the specified exception (ArithmeticException) occurs in the \textbf{try}-block.\\
+	In general there can be multiple catch-blocks handling multiple kinds of exceptions.
+\end{frame}
+
+\begin{frame}[fragile]{Stack Trace}
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class Calc {
+	
+	    public static void main(String[] args) {
+	
+	        try {
+	            int a = 7 / 0;
+	        } catch (ArithmeticException e) {
+	            System.out.println("Division by zero.");
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	\end{lstlisting}
+	The stack trace shows the order of method calls leading to point where the exception occurs.
+\end{frame}
+
+\begin{frame}[fragile]{Stack Trace}
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	Division by zero.
+	java.lang.ArithmeticException: / by zero
+		at Calc.main(Calc.java:6)
+		at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+		at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.lang.reflect.Method.invoke(Method.java:498)
+		at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147)
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Finally}
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class Calc {
+	
+	    public static void main(String[] args) {
+	
+	        try {
+	            int a = 7 / 0;
+	        } catch (ArithmeticException e) {
+	            System.out.println("Division by zero.");
+	            e.printStackTrace();
+	        } finally {
+	            System.out.println("End of program.");
+	        }
+	    }
+	}
+	\end{lstlisting}
+	The \textbf{finally}-block will always be executed, regardless if an exception occurs.
+\end{frame}
+
+\subsection{Throwing Exceptions}
+\begin{frame}[fragile]{Propagate Exceptions}
+	Unhandled exceptions can be thrown (propagated).
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]	
+	public static int divide (int divident, int divisor) throws ArithmeticException {
+	    return divident / divisor;
+	}
+	\end{lstlisting}
+	The method \texttt{int divide(\dots)} propagates the exception to the calling
+	method denoted by the keyword \textbf{throws}.
+\end{frame}
+
+\begin{frame}[fragile]{Propagate Exceptions - Test 1}
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class Calc {
+	
+	    public static int divide (int divident, int divisor) throws ArithmeticException {
+	        return divident / divisor;
+	    }
+	
+	    public static void main(String[] args) {
+	
+	        int a = 0;
+	        try {
+	            a = Calc.divide(7, 0);
+	        } catch (ArithmeticException e) {
+	            System.out.println("Division by zero.");
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Propagate Exceptions - Test 2}
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize, firstnumber=7]
+	public static void main(String[] args) {
+	
+	    int a = 0;
+	    try {
+	        a = Calc.divide(7, 0);
+	    } catch (ArithmeticException e) {
+	        System.out.println("Division by zero.");
+	        e.printStackTrace();
+	    }
+	}
+	\end{lstlisting}
+	In this example there are two jumps in the stack trace:\\
+	\texttt{java.lang.ArithmeticException: / by zero}\\
+	\texttt{at Calc.divide(Calc.java:4)}\\
+	\texttt{at Calc.main(Calc.java:11)}
+\end{frame}
+
+\begin{frame}{Java API}
+	The Java API shows\footnote{\scriptsize\url{https://docs.oracle.com/javase/7/docs/api/}}
+	if a method throws exceptions. 
+	The notation \texttt{throws exception} means that the method can throw 
+	exceptions in case of an unexpected situation.
+	It does not mean that the method throws exception every time.
+	\vfill
+	Check if the Exception is a subclass of \emph{RuntimeException}. 
+	If not the exception has to be handled or rethrown.
+\end{frame}
+
+\begin{frame}[fragile]{Creating new Exceptions}
+	You can create und use your own exception class.
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public class DivisionByZeroException extends Exception {
+
+	}
+	\end{lstlisting}
+	\vfill
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public static int divide (int divident, int divisor) throws DivisionByZeroException {
+	    if (divisor == 0) {
+	        throw new DivisionByZeroException();
+	    }
+	    return divident / divisor;
+	}
+	\end{lstlisting}	
+	Exceptions can be thrown manually with the keyword \textbf{throw}.
+\end{frame}
+
+\begin{frame}[fragile]{Creating new Exceptions - Test}
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public static void main(String[] args) {
+	
+	    int a = 0;
+	    try {
+	        a = Calc.divide(7, 0);
+	    } catch (DivisionByZeroException e) {
+	        System.out.println("Division by zero.");
+	        e.printStackTrace();
+	    }
+	}
+	\end{lstlisting}	
+	\emph{DivisionByZeroException} is checked and therefore has to be handled.
+\end{frame}
+
+\end{document}
