@@ -20,11 +20,9 @@ Die Menge `FibonacciArray` kann genau solche Zahlen enthalten die auch in der *F
 
  
 ```java
-import java.util.Set; 
-
 public class Test {	public static void main(String[] args) {
 		
-		Set<Integer> fiboMenge = new FibonacciSet();		for (int i = 0; i < 100; i++) { 
+		FibonacciArray fiboMenge = new FibonacciArray();		for (int i = 0; i < 100; i++) { 
 			try {				fiboMenge.add(i);				System.out.println(i);			} catch (NoFibonacciException e) {			} 
 		}	} 
 }
