@@ -132,6 +132,54 @@
 	\end{lstlisting}
 \end{frame}
 
+\subsection{return}
+\begin{frame}[fragile]{return}
+	Return statement gives back data
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	class Numbers {
+		private int a = 4;
+		private int b = 5;
+		
+		public Number() {}
+		
+		public int addNumbers() {
+			return a + b;
+		}
+	}
+	
+	...
+	
+	Numbers numbers = new Numbers();
+	int return = numbers.addNumbers();
+	\end{lstlisting}
+	
+	Return works with every primitiv and complex data type.
+	
+\end{frame}
+
+\begin{frame}[fragile]{return}
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public String getName() {
+		return "Klaus";
+	}
+	
+	private Calculator calc;
+	public Calculator getCalcualtor() {
+		return calc;
+	}
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{return}
+	Functions of type void do not have a return value.
+	They are used for e.g. Setters
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	\end{lstlisting}
+\end{frame}
+
 \section{Static}
 \subsection{Overview}
 %TODO improve this overview - add an example - think about the headline
@@ -192,7 +240,7 @@
 	
 	    public static count;
 
-	    public static setCount(int count) {
+	    public static void setCount(int count) {
 	        Example.count = count;
 	    }
 	}
@@ -233,7 +281,7 @@
 %\begin{frame}{Singleton}
 %\end{frame}
 
-\section{Interface}
+\section{Interfaces}
 \subsection{Overview}
 \begin{frame}{}
 	An \textbf{interface} is a well defined set of constants and methods a class have to \textbf{implement}.
