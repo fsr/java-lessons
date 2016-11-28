@@ -24,3 +24,8 @@ slides:
     name: Interfaces
     url: https://ifsr.de/kurs-materialien/java/05-interfaces.pdf
     published: True
+  -
+    number: 6
+    name: Exceptions
+    url: https://ifsr.de/kurs-materialien/java/06-exceptions.pdf
+    published: True
