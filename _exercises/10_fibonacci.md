@@ -1,5 +1,5 @@
 ---
-title: Zweidimensional
+title: Fibonacci Menge
 number: 10
 lesson: 6
 status: reviewed
@@ -18,8 +18,10 @@ Die Menge `FibonacciSet` kann genau solche Zahlen enthalten die auch in der *Fib
 
  - [Fibonacci-Folge](https://de.wikipedia.org/wiki/Fibonacci-Folge) - [Dokumentation](https://docs.oracle.com/javase/7/docs/api/index.html?java/util/Set.html) für `Set`
 
-```
-import java.util.Set; public class Test {	public static void main(String[] args) {
+```java
+import java.util.Set; 
+
+public class Test {	public static void main(String[] args) {
 		
 		Set<Integer> fiboMenge = new FibonacciSet();		for (int i = 0; i < 100; i++) { 
 			try {				fiboMenge.add(i);				System.out.println(i);			} catch (NoFibonacciException e) {			} 
