@@ -10,7 +10,8 @@
                 "03-inheritance.tex",
                 "04-abstract.tex",
                 "05-interfaces.tex",
-                "06-exceptions.tex"
+                "06-exceptions.tex",
+                "07-collections.tex"
             ]
         }
     }
