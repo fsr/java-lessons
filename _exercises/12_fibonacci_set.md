@@ -1,4 +1,4 @@
-title: Fibonacci Menge
+title: Fibonacci Menge (Set)
 number: 10
 lesson: 7
 status: reviewed
