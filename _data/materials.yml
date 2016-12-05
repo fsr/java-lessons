@@ -29,3 +29,8 @@ slides:
     name: Exceptions
     url: https://ifsr.de/kurs-materialien/java/06-exceptions.pdf
     published: True
+  -
+    number: 7
+    name: Collections
+    url: https://ifsr.de/kurs-materialien/java/07-collections.pdf
+    published: True
