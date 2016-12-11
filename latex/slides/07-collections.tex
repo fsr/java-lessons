@@ -20,7 +20,7 @@
 \begin{frame}[fragile]{Generics}
 	\begin{lstlisting}
 		Object myStringAsObject = "klaus";
-		String myStringAsString = (String) o;
+		String myStringAsString = (String) myStringAsObject;
 	\end{lstlisting}
 \end{frame}
 
@@ -315,6 +315,17 @@
 			//Key and Value
 			System.out.println("Key: " + k + ", value: " v);
 		})
+	\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Maps and For Each}
+  You can interate through the entry set of a map (available before Java 1.8)
+	\begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+      Map<String, String> map = ...
+      for (Map.Entry<String, String> entry : map.entrySet()) {
+        System.out.println("Key: " + entry.getKey() +
+        ", value" + entry.getValue());
+      }
 	\end{lstlisting}
 \end{frame}
 
