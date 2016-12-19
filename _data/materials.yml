@@ -34,3 +34,8 @@ slides:
     name: Collections
     url: https://ifsr.de/kurs-materialien/java/07-collections.pdf
     published: True
+  -
+    number: 9
+    name: Scopes & GUI
+    url: https://www.ifsr.de/kurs-materialien/java/09-scopes_and_gui.pdf
+    published: True
